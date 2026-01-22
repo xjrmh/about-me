@@ -24,37 +24,67 @@ export function ChatSection() {
 
   return (
     <div className="flex flex-col h-full">
-      {/* Chat header */}
-      <div className="border-b p-4 bg-background">
-        <h2 className="text-2xl font-semibold">Chat with Li Zheng</h2>
-        <p className="text-sm text-muted-foreground mt-1">
-          Ask me about my experience, skills, and projects
-        </p>
-      </div>
-
       {/* Messages area */}
-      <ScrollArea className="flex-1 p-4" ref={scrollAreaRef}>
-        <div className="space-y-4">
+      <ScrollArea className="flex-1 px-6 py-8" ref={scrollAreaRef}>
+        <div className="space-y-6 max-w-2xl mx-auto">
           {messages.length === 0 ? (
-            <div className="flex items-center justify-center h-full text-center p-8">
-              <div className="space-y-4">
-                <p className="text-lg font-medium text-muted-foreground">
-                  Welcome! 👋
+            <div className="flex items-center justify-center h-full">
+              <div className="text-center space-y-6 max-w-md">
+                <p className="text-sm text-muted-foreground/70">
+                  Hi, I'm Li. Ask me anything about my work.
                 </p>
-                <p className="text-sm text-muted-foreground max-w-md">
-                  I&apos;m Li Zheng, a Senior Data Scientist. Feel free to ask me
-                  about my work experience, technical skills, projects, or
-                  anything related to my professional background.
-                </p>
-                <div className="pt-4 space-y-2">
-                  <p className="text-xs text-muted-foreground">
-                    Try asking:
-                  </p>
-                  <ul className="text-xs text-muted-foreground space-y-1">
-                    <li>• &quot;What technologies do you work with?&quot;</li>
-                    <li>• &quot;Tell me about your recent projects&quot;</li>
-                    <li>• &quot;What&apos;s your experience with machine learning?&quot;</li>
-                  </ul>
+                <div className="flex flex-wrap gap-2 justify-center">
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      const inputElement = document.querySelector('input') as HTMLInputElement;
+                      if (inputElement) {
+                        const value = 'What technologies do you work with?';
+                        const nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value')?.set;
+                        nativeInputValueSetter?.call(inputElement, value);
+                        const event = new Event('input', { bubbles: true });
+                        inputElement.dispatchEvent(event);
+                        inputElement.focus();
+                      }
+                    }}
+                    className="px-3 py-1.5 text-xs text-muted-foreground/70 hover:text-foreground border border-border/50 hover:border-border rounded-full transition-colors"
+                  >
+                    Technologies
+                  </button>
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      const inputElement = document.querySelector('input') as HTMLInputElement;
+                      if (inputElement) {
+                        const value = 'Tell me about your recent projects';
+                        const nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value')?.set;
+                        nativeInputValueSetter?.call(inputElement, value);
+                        const event = new Event('input', { bubbles: true });
+                        inputElement.dispatchEvent(event);
+                        inputElement.focus();
+                      }
+                    }}
+                    className="px-3 py-1.5 text-xs text-muted-foreground/70 hover:text-foreground border border-border/50 hover:border-border rounded-full transition-colors"
+                  >
+                    Projects
+                  </button>
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      const inputElement = document.querySelector('input') as HTMLInputElement;
+                      if (inputElement) {
+                        const value = "What's your experience with machine learning?";
+                        const nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value')?.set;
+                        nativeInputValueSetter?.call(inputElement, value);
+                        const event = new Event('input', { bubbles: true });
+                        inputElement.dispatchEvent(event);
+                        inputElement.focus();
+                      }
+                    }}
+                    className="px-3 py-1.5 text-xs text-muted-foreground/70 hover:text-foreground border border-border/50 hover:border-border rounded-full transition-colors"
+                  >
+                    ML Experience
+                  </button>
                 </div>
               </div>
             </div>
@@ -70,17 +100,15 @@ export function ChatSection() {
 
           {/* Loading indicator */}
           {isLoading && (
-            <div className="flex items-center gap-2 text-muted-foreground text-sm">
-              <Loader2 className="w-4 h-4 animate-spin" />
-              <span>Thinking...</span>
+            <div className="flex items-center gap-2 text-muted-foreground/50 text-sm">
+              <Loader2 className="w-3 h-3 animate-spin" />
             </div>
           )}
 
           {/* Error message */}
           {error && (
-            <div className="bg-destructive/10 text-destructive rounded-lg p-4 text-sm">
-              <p className="font-medium">Error</p>
-              <p className="mt-1">{error.message}</p>
+            <div className="text-destructive/80 text-sm">
+              {error.message}
             </div>
           )}
 
@@ -90,16 +118,21 @@ export function ChatSection() {
       </ScrollArea>
 
       {/* Input area */}
-      <div className="border-t p-4 bg-background">
-        <form onSubmit={handleSubmit} className="flex gap-2">
+      <div className="border-t px-6 py-4">
+        <form onSubmit={handleSubmit} className="flex gap-2 max-w-2xl mx-auto">
           <Input
             value={input}
             onChange={handleInputChange}
-            placeholder="Ask me anything about my professional background..."
+            placeholder="Ask me anything..."
             disabled={isLoading}
-            className="flex-1"
+            className="flex-1 border-0 bg-muted/30 focus-visible:ring-0 focus-visible:bg-muted/50 transition-colors"
           />
-          <Button type="submit" disabled={isLoading || !input.trim()} size="icon">
+          <Button
+            type="submit"
+            disabled={isLoading || !input.trim()}
+            size="icon"
+            className="shrink-0"
+          >
             {isLoading ? (
               <Loader2 className="w-4 h-4 animate-spin" />
             ) : (

@@ -3,9 +3,9 @@ import { ChatSection } from '@/components/chat-section';
 
 export default function Home() {
   return (
-    <div className="flex flex-col lg:flex-row h-screen overflow-hidden">
+    <div className="flex flex-col lg:flex-row h-screen overflow-hidden bg-background">
       {/* Left Panel - Profile Section */}
-      <div className="w-full lg:w-1/3 xl:w-1/4 border-b lg:border-b-0 lg:border-r overflow-y-auto">
+      <div className="w-full lg:w-80 border-b lg:border-b-0 lg:border-r border-border/40 overflow-y-auto">
         <ProfileSection />
       </div>
 

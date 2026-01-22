@@ -1,4 +1,3 @@
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { cn } from '@/lib/utils';
 
 interface ChatMessageProps {
@@ -12,37 +11,33 @@ export function ChatMessage({ role, content }: ChatMessageProps) {
   return (
     <div
       className={cn(
-        'flex w-full gap-3 mb-4',
-        isUser ? 'justify-end' : 'justify-start'
+        'flex gap-3 items-start group',
+        isUser ? 'flex-row-reverse' : 'flex-row'
       )}
     >
-      {/* Assistant avatar (left side) */}
-      {!isUser && (
-        <Avatar className="w-8 h-8 mt-1">
-          <AvatarFallback className="text-xs bg-primary text-primary-foreground">
-            LZ
-          </AvatarFallback>
-        </Avatar>
-      )}
+      {/* Avatar */}
+      <div
+        className={cn(
+          'w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-medium shrink-0 mt-1 opacity-0 group-hover:opacity-100 transition-opacity',
+          isUser
+            ? 'bg-foreground/5 text-foreground/40'
+            : 'bg-foreground/5 text-foreground/40'
+        )}
+      >
+        {isUser ? 'Y' : 'L'}
+      </div>
 
       {/* Message content */}
       <div
         className={cn(
-          'rounded-lg px-4 py-2 max-w-[80%] break-words',
+          'rounded-2xl px-3.5 py-2 max-w-[80%]',
           isUser
-            ? 'bg-primary text-primary-foreground'
-            : 'bg-muted text-foreground'
+            ? 'bg-foreground text-background'
+            : 'bg-transparent text-foreground'
         )}
       >
-        <p className="text-sm whitespace-pre-wrap">{content}</p>
+        <p className="text-[13px] leading-relaxed whitespace-pre-wrap">{content}</p>
       </div>
-
-      {/* User avatar (right side) - optional */}
-      {isUser && (
-        <Avatar className="w-8 h-8 mt-1">
-          <AvatarFallback className="text-xs bg-secondary">U</AvatarFallback>
-        </Avatar>
-      )}
     </div>
   );
 }
