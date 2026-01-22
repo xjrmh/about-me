@@ -150,6 +150,12 @@ export function ChatSection({ onMessagesChange, showProfile, onToggleProfile }: 
           <Input
             value={input}
             onChange={handleInputChange}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                handleSubmit(e as any);
+              }
+            }}
             placeholder="Ask me anything..."
             disabled={isLoading}
             className="flex-1 border-0 bg-muted/30 focus-visible:ring-0 focus-visible:bg-muted/50 transition-colors text-sm"
