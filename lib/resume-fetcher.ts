@@ -25,7 +25,24 @@ export const getResume = unstable_cache(
         );
       }
 
-      const resumeText = await response.text();
+      let resumeText = await response.text();
+
+      // If the response is HTML (Google Doc published format), extract text content
+      if (resumeText.includes('<html') || resumeText.includes('<!DOCTYPE')) {
+        // Simple HTML stripping - remove scripts, styles, and HTML tags
+        resumeText = resumeText
+          .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+          .replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '')
+          .replace(/<[^>]+>/g, ' ')
+          .replace(/&nbsp;/g, ' ')
+          .replace(/&amp;/g, '&')
+          .replace(/&lt;/g, '<')
+          .replace(/&gt;/g, '>')
+          .replace(/&quot;/g, '"')
+          .replace(/&#39;/g, "'")
+          .replace(/\s+/g, ' ')
+          .trim();
+      }
 
       if (!resumeText || resumeText.trim().length === 0) {
         throw new Error('Resume document is empty');

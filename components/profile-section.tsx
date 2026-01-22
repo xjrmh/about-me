@@ -1,16 +1,20 @@
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import Image from 'next/image';
 import { Card } from '@/components/ui/card';
 import { Linkedin, Github, Mail } from 'lucide-react';
 
 export function ProfileSection() {
   return (
     <div className="flex flex-col items-center justify-center h-full p-6 space-y-6">
-      {/* Profile Avatar */}
-      <Avatar className="w-32 h-32">
-        <AvatarFallback className="text-3xl font-semibold bg-primary text-primary-foreground">
-          LZ
-        </AvatarFallback>
-      </Avatar>
+      {/* Profile Photo */}
+      <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-primary/10">
+        <Image
+          src="/profile.jpg"
+          alt="Li Zheng"
+          fill
+          className="object-cover"
+          priority
+        />
+      </div>
 
       {/* Name and Title */}
       <div className="text-center space-y-2">
