@@ -58,7 +58,7 @@ export function ChatSection({ onMessagesChange, showProfile, onToggleProfile }: 
             <div className="flex items-center justify-center h-full min-h-[80px] sm:min-h-[100px] lg:min-h-[200px]">
               <div className="text-center space-y-2.5 sm:space-y-3 lg:space-y-6 max-w-md px-4">
                 <p className="text-xs sm:text-sm text-muted-foreground/70">
-                  Hi, I'm Li. Ask me anything about my work.
+                  Hi, I&apos;m Li. Ask me anything about my work.
                 </p>
                 <div className="flex flex-wrap gap-1.5 sm:gap-2 justify-center">
                   <button
