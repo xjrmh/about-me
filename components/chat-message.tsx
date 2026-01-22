@@ -30,13 +30,13 @@ export function ChatMessage({ role, content }: ChatMessageProps) {
       {/* Message content */}
       <div
         className={cn(
-          'rounded-2xl px-3.5 py-2 max-w-[80%]',
+          'rounded-2xl px-3 py-1.5 sm:px-3.5 sm:py-2 max-w-[85%] sm:max-w-[80%]',
           isUser
             ? 'bg-foreground text-background'
             : 'bg-transparent text-foreground'
         )}
       >
-        <p className="text-[13px] leading-relaxed whitespace-pre-wrap">{content}</p>
+        <p className="text-xs sm:text-[13px] leading-relaxed whitespace-pre-wrap">{content}</p>
       </div>
     </div>
   );
