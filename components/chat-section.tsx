@@ -34,7 +34,7 @@ export function ChatSection({ onMessagesChange, showProfile, onToggleProfile }: 
   }, [messages.length, onMessagesChange]);
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full w-full overflow-x-hidden">
       {/* Header with profile toggle (mobile only, shown when messages exist) */}
       {messages.length > 0 && (
         <div className="lg:hidden border-b border-border/40 px-4 py-3 flex items-center justify-between">
@@ -52,8 +52,8 @@ export function ChatSection({ onMessagesChange, showProfile, onToggleProfile }: 
       )}
 
       {/* Messages area */}
-      <ScrollArea className={`flex-1 ${messages.length === 0 ? 'px-4 py-3 sm:px-6 sm:py-4' : 'px-4 py-6 sm:px-6 sm:py-8'}`} ref={scrollAreaRef}>
-        <div className="space-y-4 sm:space-y-6 max-w-2xl mx-auto">
+      <ScrollArea className={`flex-1 ${messages.length === 0 ? 'px-4 py-3 sm:px-6 sm:py-4' : 'px-4 py-6 sm:px-6 sm:py-8'} overflow-x-hidden`} ref={scrollAreaRef}>
+        <div className="space-y-4 sm:space-y-6 max-w-2xl mx-auto w-full">
           {messages.length === 0 ? (
             <div className="flex items-center justify-center h-full min-h-[80px] sm:min-h-[100px] lg:min-h-[200px]">
               <div className="text-center space-y-2.5 sm:space-y-3 lg:space-y-6 max-w-md px-4">
@@ -145,8 +145,8 @@ export function ChatSection({ onMessagesChange, showProfile, onToggleProfile }: 
       </ScrollArea>
 
       {/* Input area */}
-      <div className="border-t px-4 py-3 sm:px-6 sm:py-4">
-        <form onSubmit={handleSubmit} className="flex gap-2 max-w-2xl mx-auto">
+      <div className="border-t px-4 py-3 sm:px-6 sm:py-4 w-full">
+        <form onSubmit={handleSubmit} className="flex gap-2 max-w-2xl mx-auto w-full">
           <Input
             value={input}
             onChange={handleInputChange}
