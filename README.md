@@ -1,14 +1,15 @@
 # Li Zheng - Personal Website
 
-A modern, minimal personal website featuring an AI chatbot powered by Claude that speaks as Li Zheng in first person.
+A clean, minimalistic personal website featuring an AI chatbot powered by Claude Sonnet 4.5 that speaks as Li Zheng in first person.
 
 ## Features
 
-- **Split-screen Layout**: Profile information on the left, AI chatbot on the right
-- **AI Chatbot**: Powered by Claude API via Vercel AI SDK, speaks in first person
-- **Resume Integration**: Fetches resume from Google Doc with 24-hour caching
-- **Responsive Design**: Mobile-friendly layout that adapts to different screen sizes
-- **Social Links**: Quick access to LinkedIn, GitHub, and Email
+- **Minimalistic Design**: Ultra-clean interface focused on the conversation
+- **Split-screen Layout**: Compact profile sidebar with AI chatbot as the main feature
+- **AI Chatbot**: Powered by Claude Sonnet 4.5 API via Vercel AI SDK, speaks in first person
+- **Resume Integration**: Fetches resume from Google Drive with 24-hour server-side caching
+- **Responsive Design**: Mobile-friendly layout that adapts seamlessly
+- **Social Links**: Icon-only links to LinkedIn, GitHub, Resume PDF, and Email
 - **Modern Stack**: Next.js 15, TypeScript, Tailwind CSS, shadcn/ui
 
 ## Setup Instructions
@@ -97,7 +98,8 @@ vercel
 
 Edit [components/profile-section.tsx](components/profile-section.tsx):
 - Change name, title, and social links
-- Replace avatar placeholder with your photo
+- Update profile photo by replacing `public/profile.jpg`
+- Add or remove social links (LinkedIn, GitHub, Resume PDF, Email)
 
 ### Modify Chatbot Persona
 
@@ -109,26 +111,8 @@ Edit [app/api/chat/route.ts](app/api/chat/route.ts):
 
 Edit [app/globals.css](app/globals.css):
 - Modify CSS variables for colors
-- Customize animations and transitions
-
-### Replace Placeholder Avatar
-
-1. Add your profile photo to `public/profile.jpg`
-2. Update [components/profile-section.tsx](components/profile-section.tsx):
-
-```tsx
-import Image from 'next/image';
-
-// Replace Avatar component with:
-<div className="relative w-32 h-32 rounded-full overflow-hidden">
-  <Image
-    src="/profile.jpg"
-    alt="Li Zheng"
-    fill
-    className="object-cover"
-  />
-</div>
-```
+- Customize the minimalistic theme
+- Adjust border radius and spacing
 
 ## Project Structure
 
@@ -158,14 +142,16 @@ about-me/
 - **Language**: [TypeScript](https://www.typescriptlang.org/)
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
 - **UI Components**: [shadcn/ui](https://ui.shadcn.com/)
-- **AI**: [Claude API](https://www.anthropic.com/api) via [Vercel AI SDK](https://sdk.vercel.ai/)
-- **Icons**: [Lucide React](https://lucide.dev/)
+- **AI**: [Claude Sonnet 4.5](https://www.anthropic.com/api) via [Vercel AI SDK](https://sdk.vercel.ai/)
+- **Icons**: Inline SVG (LinkedIn, GitHub, Document, Mail)
 
 ## Cost Estimation
 
-The Claude API charges per token:
-- **Typical conversation**: $0.01 - $0.05 per session
-- **Monthly estimate**: $5 - $20 (depending on traffic)
+Claude Sonnet 4.5 API pricing:
+- **Input**: $3 per million tokens
+- **Output**: $15 per million tokens
+- **Typical conversation**: ~$0.02 - $0.10 per session
+- **Monthly estimate**: $5 - $30 (depending on traffic)
 
 Monitor your usage at [console.anthropic.com](https://console.anthropic.com).
 
