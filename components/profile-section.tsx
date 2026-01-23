@@ -20,7 +20,7 @@ export function ProfileSection() {
         {/* Name and Title */}
         <div className="text-center space-y-1">
           <h1 className="text-xl sm:text-2xl font-medium">Li Zheng</h1>
-          <p className="text-xs sm:text-sm text-muted-foreground/80">Data Science | AI</p>
+          <p className="text-xs sm:text-sm text-muted-foreground/80">Data Science | Real Estate | AI</p>
         </div>
 
         {/* Social Links */}
