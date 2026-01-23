@@ -158,7 +158,7 @@ export function ChatSection({ onMessagesChange, showProfile, onToggleProfile }: 
             }}
             placeholder="Ask me anything..."
             disabled={isLoading}
-            className="flex-1 border-0 bg-muted/30 focus-visible:ring-0 focus-visible:bg-muted/50 transition-colors text-sm"
+            className="flex-1 border-0 bg-muted/30 focus-visible:ring-0 focus-visible:bg-muted/50 transition-colors text-base md:text-sm"
           />
           <Button
             type="submit"
