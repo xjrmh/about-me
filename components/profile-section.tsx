@@ -102,6 +102,13 @@ export function ProfileSection() {
                 Led analytics engagements for major banks, developed financial risk models and NLP systems
               </p>
             </div>
+            <div className="space-y-1">
+              <h3 className="text-xs sm:text-sm font-medium text-foreground">Data Analyst</h3>
+              <p className="text-[11px] sm:text-xs text-muted-foreground/70">HER Realtors • Aug 2015 - Dec 2016</p>
+              <p className="text-[11px] sm:text-xs text-muted-foreground/60 leading-relaxed pt-0.5 sm:pt-1">
+                Developed ML-based real estate price prediction system, driving $5.3M in client deals
+              </p>
+            </div>
           </div>
         </div>
 
