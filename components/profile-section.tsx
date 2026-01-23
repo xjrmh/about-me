@@ -106,14 +106,14 @@ export function ProfileSection() {
               <h3 className="text-xs sm:text-sm font-medium text-foreground">Data Analyst</h3>
               <p className="text-[11px] sm:text-xs text-muted-foreground/70">HER Realtors • Aug 2015 - Dec 2016</p>
               <p className="text-[11px] sm:text-xs text-muted-foreground/60 leading-relaxed pt-0.5 sm:pt-1">
-                Developed ML-based real estate price prediction system, driving $5.3M in client deals
+                Developed ML-based real estate price prediction system
               </p>
             </div>
           </div>
         </div>
 
         {/* Education Section */}
-        <div className="space-y-2.5 sm:space-y-3 lg:space-y-4 pb-3 sm:pb-4 lg:pb-6">
+        <div className="space-y-2.5 sm:space-y-3 lg:space-y-4">
           <h2 className="text-xs sm:text-sm font-medium text-foreground/90 uppercase tracking-wide">Education</h2>
           <div className="space-y-3 sm:space-y-4 lg:space-y-5">
             <div className="space-y-1">
@@ -123,6 +123,49 @@ export function ProfileSection() {
             <div className="space-y-1">
               <h3 className="text-xs sm:text-sm font-medium text-foreground">B.S., Accounting & MIS</h3>
               <p className="text-[11px] sm:text-xs text-muted-foreground/70">The Ohio State University • 2012 - 2016</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Projects Section */}
+        <div className="space-y-2.5 sm:space-y-3 lg:space-y-4 pb-3 sm:pb-4 lg:pb-6">
+          <h2 className="text-xs sm:text-sm font-medium text-foreground/90 uppercase tracking-wide">Projects</h2>
+          <div className="space-y-3 sm:space-y-4 lg:space-y-5">
+            <div className="space-y-1">
+              <a
+                href="https://apps.apple.com/us/app/go-moku/id6755308947"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs sm:text-sm font-medium text-foreground hover:text-foreground/70 transition-colors inline-flex items-center gap-1"
+              >
+                Gomoku Game
+                <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                  <polyline points="15 3 21 3 21 9"/>
+                  <line x1="10" y1="14" x2="21" y2="3"/>
+                </svg>
+              </a>
+              <p className="text-[11px] sm:text-xs text-muted-foreground/60 leading-relaxed">
+                iOS game featuring AI opponent and local multiplayer
+              </p>
+            </div>
+            <div className="space-y-1">
+              <a
+                href="https://xjrmh.github.io/work-focus-timer/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs sm:text-sm font-medium text-foreground hover:text-foreground/70 transition-colors inline-flex items-center gap-1"
+              >
+                Work Focus Timer
+                <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                  <polyline points="15 3 21 3 21 9"/>
+                  <line x1="10" y1="14" x2="21" y2="3"/>
+                </svg>
+              </a>
+              <p className="text-[11px] sm:text-xs text-muted-foreground/60 leading-relaxed">
+                Minimalist productivity timer for focused work sessions
+              </p>
             </div>
           </div>
         </div>
