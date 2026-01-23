@@ -10,10 +10,10 @@ export default function Home() {
   const [hasMessages, setHasMessages] = useState(false);
 
   return (
-    <div className="flex flex-col lg:flex-row h-screen overflow-hidden bg-background relative fixed inset-0 lg:static w-screen">
+    <div className="flex flex-col lg:flex-row h-screen overflow-hidden overflow-x-hidden bg-background relative fixed inset-0 lg:static w-full max-w-full">
       {/* Left Panel - Profile Section (Desktop: always visible, Mobile: conditional) */}
       <div className={`
-        w-full lg:w-1/2 border-b lg:border-b-0 lg:border-r border-border/40 overflow-y-auto
+        w-full max-w-full lg:w-1/2 border-b lg:border-b-0 lg:border-r border-border/40 overflow-y-auto overflow-x-hidden
         ${hasMessages ? 'max-h-0 lg:max-h-none' : 'max-h-[70vh] lg:max-h-none'}
         lg:block
       `}>
@@ -35,7 +35,7 @@ export default function Home() {
 
           {/* Profile Panel */}
           <div className={`
-            lg:hidden fixed inset-0 z-50 bg-background
+            lg:hidden fixed inset-0 z-50 bg-background overflow-x-hidden
             transition-transform duration-300 ease-in-out
             ${showProfile ? 'translate-y-0' : 'translate-y-full'}
           `}>
@@ -59,7 +59,7 @@ export default function Home() {
       )}
 
       {/* Right Panel - Chat Section */}
-      <div className="flex-1 overflow-hidden w-full lg:w-auto">
+      <div className="flex-1 overflow-hidden overflow-x-hidden w-full max-w-full lg:w-auto">
         <ChatSection
           onMessagesChange={setHasMessages}
           showProfile={showProfile}
