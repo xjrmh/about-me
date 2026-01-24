@@ -1,6 +1,11 @@
+'use client';
+
 import Image from 'next/image';
+import { useLanguage } from '@/lib/language-context';
 
 export function ProfileSection() {
+  const { t } = useLanguage();
+
   return (
     <div className="flex flex-col h-full p-4 sm:p-6 lg:p-8">
       <div className="w-full max-w-2xl mx-auto space-y-4 sm:space-y-6 lg:space-y-8">
@@ -19,8 +24,8 @@ export function ProfileSection() {
 
         {/* Name and Title */}
         <div className="text-center space-y-1">
-          <h1 className="text-xl sm:text-2xl font-medium">Li Zheng</h1>
-          <p className="text-xs sm:text-sm text-muted-foreground/80">Data Science | Real Estate | AI</p>
+          <h1 className="text-xl sm:text-2xl font-medium">{t('profile.name')}</h1>
+          <p className="text-xs sm:text-sm text-muted-foreground/80">{t('profile.title')}</p>
         </div>
 
         {/* Social Links */}
@@ -79,34 +84,34 @@ export function ProfileSection() {
 
         {/* Experience Section */}
         <div className="space-y-2.5 sm:space-y-3 lg:space-y-4">
-          <h2 className="text-xs sm:text-sm font-medium text-foreground/90 uppercase tracking-wide">Experience</h2>
+          <h2 className="text-xs sm:text-sm font-medium text-foreground/90 uppercase tracking-wide">{t('profile.experience')}</h2>
           <div className="space-y-3 sm:space-y-4 lg:space-y-5">
             <div className="space-y-1">
-              <h3 className="text-xs sm:text-sm font-medium text-foreground">Co-Founder</h3>
-              <p className="text-[11px] sm:text-xs text-muted-foreground/70">Flat Strategy • Mar 2025 - Present</p>
+              <h3 className="text-xs sm:text-sm font-medium text-foreground">{t('exp.cofounder')}</h3>
+              <p className="text-[11px] sm:text-xs text-muted-foreground/70">{t('exp.cofounder.company')} • {t('exp.cofounder.date')}</p>
               <p className="text-[11px] sm:text-xs text-muted-foreground/60 leading-relaxed pt-0.5 sm:pt-1">
-                Empowering modern homebuyers with expert transaction services, leveraging in-house agentic AI
+                {t('exp.cofounder.desc')}
               </p>
             </div>
             <div className="space-y-1">
-              <h3 className="text-xs sm:text-sm font-medium text-foreground">Senior Data Scientist, Tech Lead</h3>
-              <p className="text-[11px] sm:text-xs text-muted-foreground/70">Meta (Instagram / Messenger) • Sep 2021 - Jan 2026</p>
+              <h3 className="text-xs sm:text-sm font-medium text-foreground">{t('exp.meta.title')}</h3>
+              <p className="text-[11px] sm:text-xs text-muted-foreground/70">{t('exp.meta.company')} • {t('exp.meta.date')}</p>
               <p className="text-[11px] sm:text-xs text-muted-foreground/60 leading-relaxed pt-0.5 sm:pt-1">
-                Led IG Search × MetaAI integration and E2EE global launch on Messenger
+                {t('exp.meta.desc')}
               </p>
             </div>
             <div className="space-y-1">
-              <h3 className="text-xs sm:text-sm font-medium text-foreground">Senior Associate, Data & Analytics</h3>
-              <p className="text-[11px] sm:text-xs text-muted-foreground/70">PwC • Jun 2018 - Sep 2021</p>
+              <h3 className="text-xs sm:text-sm font-medium text-foreground">{t('exp.pwc.title')}</h3>
+              <p className="text-[11px] sm:text-xs text-muted-foreground/70">{t('exp.pwc.company')} • {t('exp.pwc.date')}</p>
               <p className="text-[11px] sm:text-xs text-muted-foreground/60 leading-relaxed pt-0.5 sm:pt-1">
-                Led analytics engagements for major banks, developed financial risk models and NLP systems
+                {t('exp.pwc.desc')}
               </p>
             </div>
             <div className="space-y-1">
-              <h3 className="text-xs sm:text-sm font-medium text-foreground">Data Analyst</h3>
-              <p className="text-[11px] sm:text-xs text-muted-foreground/70">HER Realtors • Aug 2015 - Dec 2016</p>
+              <h3 className="text-xs sm:text-sm font-medium text-foreground">{t('exp.her.title')}</h3>
+              <p className="text-[11px] sm:text-xs text-muted-foreground/70">{t('exp.her.company')} • {t('exp.her.date')}</p>
               <p className="text-[11px] sm:text-xs text-muted-foreground/60 leading-relaxed pt-0.5 sm:pt-1">
-                Developed ML-based real estate price prediction system
+                {t('exp.her.desc')}
               </p>
             </div>
           </div>
@@ -114,22 +119,22 @@ export function ProfileSection() {
 
         {/* Education Section */}
         <div className="space-y-2.5 sm:space-y-3 lg:space-y-4">
-          <h2 className="text-xs sm:text-sm font-medium text-foreground/90 uppercase tracking-wide">Education</h2>
+          <h2 className="text-xs sm:text-sm font-medium text-foreground/90 uppercase tracking-wide">{t('profile.education')}</h2>
           <div className="space-y-3 sm:space-y-4 lg:space-y-5">
             <div className="space-y-1">
-              <h3 className="text-xs sm:text-sm font-medium text-foreground">M.S., Data Science (Financial Fraud Analytics)</h3>
-              <p className="text-[11px] sm:text-xs text-muted-foreground/70">Duke University • 2017 - 2018</p>
+              <h3 className="text-xs sm:text-sm font-medium text-foreground">{t('edu.duke.degree')}</h3>
+              <p className="text-[11px] sm:text-xs text-muted-foreground/70">{t('edu.duke.school')} • {t('edu.duke.date')}</p>
             </div>
             <div className="space-y-1">
-              <h3 className="text-xs sm:text-sm font-medium text-foreground">B.S., Accounting & MIS</h3>
-              <p className="text-[11px] sm:text-xs text-muted-foreground/70">The Ohio State University • 2012 - 2016</p>
+              <h3 className="text-xs sm:text-sm font-medium text-foreground">{t('edu.osu.degree')}</h3>
+              <p className="text-[11px] sm:text-xs text-muted-foreground/70">{t('edu.osu.school')} • {t('edu.osu.date')}</p>
             </div>
           </div>
         </div>
 
         {/* Projects Section */}
         <div className="space-y-2.5 sm:space-y-3 lg:space-y-4 pb-3 sm:pb-4 lg:pb-6">
-          <h2 className="text-xs sm:text-sm font-medium text-foreground/90 uppercase tracking-wide">Projects</h2>
+          <h2 className="text-xs sm:text-sm font-medium text-foreground/90 uppercase tracking-wide">{t('profile.projects')}</h2>
           <div className="space-y-3 sm:space-y-4 lg:space-y-5">
             <div className="space-y-1">
               <a
@@ -138,7 +143,7 @@ export function ProfileSection() {
                 rel="noopener noreferrer"
                 className="text-xs sm:text-sm font-medium text-foreground hover:text-foreground/70 transition-colors inline-flex items-center gap-1"
               >
-                Gomoku Game
+                {t('proj.gomoku')}
                 <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
                   <polyline points="15 3 21 3 21 9"/>
@@ -146,7 +151,7 @@ export function ProfileSection() {
                 </svg>
               </a>
               <p className="text-[11px] sm:text-xs text-muted-foreground/60 leading-relaxed">
-                iOS game featuring AI opponent and local multiplayer
+                {t('proj.gomoku.desc')}
               </p>
             </div>
             <div className="space-y-1">
@@ -156,7 +161,7 @@ export function ProfileSection() {
                 rel="noopener noreferrer"
                 className="text-xs sm:text-sm font-medium text-foreground hover:text-foreground/70 transition-colors inline-flex items-center gap-1"
               >
-                Work Focus Timer
+                {t('proj.timer')}
                 <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
                   <polyline points="15 3 21 3 21 9"/>
@@ -164,7 +169,7 @@ export function ProfileSection() {
                 </svg>
               </a>
               <p className="text-[11px] sm:text-xs text-muted-foreground/60 leading-relaxed">
-                Minimalist productivity timer for focused work sessions
+                {t('proj.timer.desc')}
               </p>
             </div>
           </div>

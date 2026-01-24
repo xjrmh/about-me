@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { ProfileSection } from '@/components/profile-section';
 import { ChatSection } from '@/components/chat-section';
 import { Button } from '@/components/ui/button';
+import { LanguageSelector } from '@/components/language-selector';
 
 export default function Home() {
   const [showProfile, setShowProfile] = useState(false);
@@ -11,6 +12,9 @@ export default function Home() {
 
   return (
     <div className="flex flex-col lg:flex-row h-screen overflow-hidden overflow-x-hidden bg-background relative fixed inset-0 lg:static w-full max-w-full">
+      {/* Language Selector */}
+      <LanguageSelector />
+
       {/* Left Panel - Profile Section (Desktop: always visible, Mobile: conditional) */}
       <div className={`
         w-full max-w-full lg:w-1/2 border-b lg:border-b-0 lg:border-r border-border/40 overflow-y-auto overflow-x-hidden

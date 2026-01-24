@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { ChatMessage } from '@/components/chat-message';
 import { Send, Loader2, User } from 'lucide-react';
+import { useLanguage } from '@/lib/language-context';
 
 interface ChatSectionProps {
   onMessagesChange: (hasMessages: boolean) => void;
@@ -15,6 +16,7 @@ interface ChatSectionProps {
 }
 
 export function ChatSection({ onMessagesChange, showProfile, onToggleProfile }: ChatSectionProps) {
+  const { t } = useLanguage();
   const { messages, input, handleInputChange, handleSubmit, isLoading, error } =
     useChat({
       api: '/api/chat',
@@ -38,7 +40,7 @@ export function ChatSection({ onMessagesChange, showProfile, onToggleProfile }: 
       {/* Header with profile toggle (mobile only, shown when messages exist) */}
       {messages.length > 0 && (
         <div className="lg:hidden border-b border-border/40 px-4 py-3 flex items-center justify-between">
-          <h2 className="text-sm font-medium">Chat</h2>
+          <h2 className="text-sm font-medium">{t('chat.header')}</h2>
           <Button
             variant="ghost"
             size="sm"
@@ -58,7 +60,7 @@ export function ChatSection({ onMessagesChange, showProfile, onToggleProfile }: 
             <div className="flex items-center justify-center h-full min-h-[80px] sm:min-h-[100px] lg:min-h-[200px]">
               <div className="text-center space-y-2.5 sm:space-y-3 lg:space-y-6 max-w-md px-4">
                 <p className="text-xs sm:text-sm text-muted-foreground/70">
-                  Hi, I&apos;m Li. Ask me anything about my work.
+                  {t('chat.welcome')}
                 </p>
                 <div className="flex flex-wrap gap-1.5 sm:gap-2 justify-center">
                   <button
@@ -66,7 +68,7 @@ export function ChatSection({ onMessagesChange, showProfile, onToggleProfile }: 
                       e.preventDefault();
                       const inputElement = document.querySelector('input') as HTMLInputElement;
                       if (inputElement) {
-                        const value = 'What technologies do you work with?';
+                        const value = t('chat.q.technologies');
                         const nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value')?.set;
                         nativeInputValueSetter?.call(inputElement, value);
                         const event = new Event('input', { bubbles: true });
@@ -76,14 +78,14 @@ export function ChatSection({ onMessagesChange, showProfile, onToggleProfile }: 
                     }}
                     className="px-2.5 py-1 sm:px-3 sm:py-1.5 text-[11px] sm:text-xs text-muted-foreground/70 hover:text-foreground border border-border/50 hover:border-border rounded-full transition-colors"
                   >
-                    Technologies
+                    {t('chat.btn.technologies')}
                   </button>
                   <button
                     onClick={(e) => {
                       e.preventDefault();
                       const inputElement = document.querySelector('input') as HTMLInputElement;
                       if (inputElement) {
-                        const value = 'Tell me about your recent projects';
+                        const value = t('chat.q.projects');
                         const nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value')?.set;
                         nativeInputValueSetter?.call(inputElement, value);
                         const event = new Event('input', { bubbles: true });
@@ -93,14 +95,14 @@ export function ChatSection({ onMessagesChange, showProfile, onToggleProfile }: 
                     }}
                     className="px-2.5 py-1 sm:px-3 sm:py-1.5 text-[11px] sm:text-xs text-muted-foreground/70 hover:text-foreground border border-border/50 hover:border-border rounded-full transition-colors"
                   >
-                    Projects
+                    {t('chat.btn.projects')}
                   </button>
                   <button
                     onClick={(e) => {
                       e.preventDefault();
                       const inputElement = document.querySelector('input') as HTMLInputElement;
                       if (inputElement) {
-                        const value = "What's next for you?";
+                        const value = t('chat.q.whatsNext');
                         const nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value')?.set;
                         nativeInputValueSetter?.call(inputElement, value);
                         const event = new Event('input', { bubbles: true });
@@ -110,7 +112,7 @@ export function ChatSection({ onMessagesChange, showProfile, onToggleProfile }: 
                     }}
                     className="px-2.5 py-1 sm:px-3 sm:py-1.5 text-[11px] sm:text-xs text-muted-foreground/70 hover:text-foreground border border-border/50 hover:border-border rounded-full transition-colors"
                   >
-                    What&apos;s next?
+                    {t('chat.btn.whatsNext')}
                   </button>
                 </div>
               </div>
@@ -156,7 +158,7 @@ export function ChatSection({ onMessagesChange, showProfile, onToggleProfile }: 
                 handleSubmit(e as any);
               }
             }}
-            placeholder="Ask me anything..."
+            placeholder={t('chat.placeholder')}
             disabled={isLoading}
             className="flex-1 border-0 bg-muted/30 focus-visible:ring-0 focus-visible:bg-muted/50 transition-colors text-base md:text-sm"
           />
