@@ -84,7 +84,7 @@ export function ProfileSection() {
 
         {/* Experience Section */}
         <div className="space-y-2.5 sm:space-y-3 lg:space-y-4">
-          <h2 className="text-xs sm:text-sm font-medium text-foreground/90 uppercase tracking-wide">{t('profile.experience')}</h2>
+          <h2 className="text-xs sm:text-sm font-bold text-foreground/90 uppercase tracking-wide">{t('profile.experience')}</h2>
           <div className="space-y-3 sm:space-y-4 lg:space-y-5">
             <div className="space-y-1">
               <h3 className="text-xs sm:text-sm font-medium text-foreground">{t('exp.cofounder')}</h3>
@@ -119,7 +119,7 @@ export function ProfileSection() {
 
         {/* Education Section */}
         <div className="space-y-2.5 sm:space-y-3 lg:space-y-4">
-          <h2 className="text-xs sm:text-sm font-medium text-foreground/90 uppercase tracking-wide">{t('profile.education')}</h2>
+          <h2 className="text-xs sm:text-sm font-bold text-foreground/90 uppercase tracking-wide">{t('profile.education')}</h2>
           <div className="space-y-3 sm:space-y-4 lg:space-y-5">
             <div className="space-y-1">
               <h3 className="text-xs sm:text-sm font-medium text-foreground">{t('edu.duke.degree')}</h3>
@@ -134,7 +134,7 @@ export function ProfileSection() {
 
         {/* Projects Section */}
         <div className="space-y-2.5 sm:space-y-3 lg:space-y-4 pb-3 sm:pb-4 lg:pb-6">
-          <h2 className="text-xs sm:text-sm font-medium text-foreground/90 uppercase tracking-wide">{t('profile.projects')}</h2>
+          <h2 className="text-xs sm:text-sm font-bold text-foreground/90 uppercase tracking-wide">{t('profile.projects')}</h2>
           <div className="space-y-3 sm:space-y-4 lg:space-y-5">
             <div className="space-y-1">
               <a
