@@ -6,6 +6,7 @@ import { LanguageProvider } from '@/lib/language-context';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('http://localhost:3000'),
   title: 'Li Zheng - Senior Data Scientist',
   description:
     'Personal website and AI chatbot for Li Zheng, Senior Data Scientist. Chat with me to learn about my professional experience, skills, and projects.',
@@ -18,11 +19,20 @@ export const metadata: Metadata = {
     'Portfolio',
   ],
   authors: [{ name: 'Li Zheng' }],
+  icons: {
+    icon: [
+      { url: '/profile.jpg', sizes: '32x32', type: 'image/jpeg' },
+      { url: '/profile.jpg', sizes: '16x16', type: 'image/jpeg' },
+    ],
+    apple: { url: '/profile.jpg', sizes: '180x180', type: 'image/jpeg' },
+    shortcut: '/profile.jpg',
+  },
   openGraph: {
     title: 'Li Zheng - Senior Data Scientist',
     description:
       'Chat with Li Zheng to learn about professional experience, skills, and projects in data science.',
     type: 'website',
+    images: ['/profile.jpg'],
   },
 };
 
