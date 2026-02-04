@@ -114,6 +114,23 @@ export function ChatSection({ onMessagesChange, showProfile, onToggleProfile }: 
                   >
                     {t('chat.btn.whatsNext')}
                   </button>
+                  <button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      const inputElement = document.querySelector('input') as HTMLInputElement;
+                      if (inputElement) {
+                        const value = t('chat.q.collaborate');
+                        const nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value')?.set;
+                        nativeInputValueSetter?.call(inputElement, value);
+                        const event = new Event('input', { bubbles: true });
+                        inputElement.dispatchEvent(event);
+                        inputElement.focus();
+                      }
+                    }}
+                    className="px-2.5 py-1 sm:px-3 sm:py-1.5 text-[11px] sm:text-xs text-muted-foreground/70 hover:text-foreground border border-border/50 hover:border-border rounded-full transition-colors"
+                  >
+                    {t('chat.btn.collaborate')}
+                  </button>
                 </div>
               </div>
             </div>

@@ -64,10 +64,21 @@ const translations: Record<Language, Record<string, string>> = {
     'chat.error': 'Sorry, something went wrong. Please try again.',
     'chat.btn.technologies': 'Technologies',
     'chat.btn.projects': 'Projects',
-    'chat.btn.whatsNext': "What's next?",
+    'chat.btn.whatsNext': "Next Steps",
+    'chat.btn.collaborate': 'Collaborate',
     'chat.q.technologies': 'What technologies do you work with?',
     'chat.q.projects': 'Tell me about your recent projects',
-    'chat.q.whatsNext': "What's next for you?",
+    'chat.q.whatsNext': "What are your next steps?",
+    'chat.q.collaborate': 'Can we collaborate on a great idea?',
+
+    // Contact Form
+    'contact.prompt': "I'd love to discuss this further with you personally. Please leave your contact information:",
+    'contact.name': 'Your Name',
+    'contact.email': 'Your Email',
+    'contact.message': 'What would you like to discuss?',
+    'contact.submit': 'Send Message',
+    'contact.sending': 'Sending...',
+    'contact.success': "Thanks for reaching out! I'll get back to you soon.",
   },
   zh: {
     // Profile Section
@@ -122,10 +133,21 @@ const translations: Record<Language, Record<string, string>> = {
     'chat.error': '抱歉，出了点问题。请重试。',
     'chat.btn.technologies': '技术栈',
     'chat.btn.projects': '项目',
-    'chat.btn.whatsNext': '下一步计划',
+    'chat.btn.whatsNext': '下一步',
+    'chat.btn.collaborate': '合作',
     'chat.q.technologies': '你使用哪些技术？',
     'chat.q.projects': '介绍一下你最近的项目',
-    'chat.q.whatsNext': '你的下一步计划是什么？',
+    'chat.q.whatsNext': '你的下一步是什么？',
+    'chat.q.collaborate': '我们可以合作实现一个好想法吗？',
+
+    // Contact Form
+    'contact.prompt': '我很乐意和你进一步深入讨论。请留下你的联系方式：',
+    'contact.name': '您的姓名',
+    'contact.email': '您的邮箱',
+    'contact.message': '您想讨论什么？',
+    'contact.submit': '发送消息',
+    'contact.sending': '发送中...',
+    'contact.success': '感谢联系！我会尽快回复您。',
   },
 };
 

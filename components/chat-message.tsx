@@ -1,4 +1,5 @@
 import { cn } from '@/lib/utils';
+import { ContactForm } from '@/components/contact-form';
 
 interface ChatMessageProps {
   role: string;
@@ -7,6 +8,10 @@ interface ChatMessageProps {
 
 export function ChatMessage({ role, content }: ChatMessageProps) {
   const isUser = role === 'user';
+
+  // Check if this message should show a contact form
+  const showContactForm = !isUser && content.includes('[CONTACT_PROMPT]');
+  const displayContent = content.replace('[CONTACT_PROMPT]', '').trim();
 
   return (
     <div
@@ -30,13 +35,27 @@ export function ChatMessage({ role, content }: ChatMessageProps) {
       {/* Message content */}
       <div
         className={cn(
-          'rounded-2xl px-3 py-1.5 sm:px-3.5 sm:py-2 max-w-[85%] sm:max-w-[80%] overflow-hidden break-words',
-          isUser
-            ? 'bg-foreground text-background'
-            : 'bg-transparent text-foreground'
+          'max-w-[85%] sm:max-w-[80%] overflow-hidden break-words space-y-3',
+          !isUser && 'w-full'
         )}
       >
-        <p className="text-xs sm:text-[13px] leading-relaxed whitespace-pre-wrap break-words">{content}</p>
+        <div
+          className={cn(
+            'rounded-2xl px-3 py-1.5 sm:px-3.5 sm:py-2',
+            isUser
+              ? 'bg-foreground text-background'
+              : 'bg-transparent text-foreground'
+          )}
+        >
+          <p className="text-xs sm:text-[13px] leading-relaxed whitespace-pre-wrap break-words">{displayContent}</p>
+        </div>
+
+        {/* Show contact form if triggered */}
+        {showContactForm && (
+          <div className="mt-3">
+            <ContactForm />
+          </div>
+        )}
       </div>
     </div>
   );
