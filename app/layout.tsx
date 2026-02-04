@@ -5,11 +5,14 @@ import { LanguageProvider } from '@/lib/language-context';
 
 const inter = Inter({ subsets: ['latin'] });
 
+const baseUrl = process.env.SITE_URL ||
+                (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000');
+
 export const metadata: Metadata = {
-  metadataBase: new URL('http://localhost:3000'),
-  title: 'Li Zheng - Senior Data Scientist',
+  metadataBase: new URL(baseUrl),
+  title: 'Li Zheng - Data Science | Real Estate | AI',
   description:
-    'Personal website and AI chatbot for Li Zheng, Senior Data Scientist. Chat with me to learn about my professional experience, skills, and projects.',
+    'Personal website and AI chatbot for Li Zheng. Explore my work in data science, real estate innovation, and AI. Chat with me to learn about my professional experience, skills, and projects.',
   keywords: [
     'Li Zheng',
     'Senior Data Scientist',
@@ -28,9 +31,9 @@ export const metadata: Metadata = {
     shortcut: '/profile.jpg',
   },
   openGraph: {
-    title: 'Li Zheng - Senior Data Scientist',
+    title: 'Li Zheng - Data Science | Real Estate | AI',
     description:
-      'Chat with Li Zheng to learn about professional experience, skills, and projects in data science.',
+      'Explore my work in data science, real estate innovation, and AI. Chat with me to learn about my professional experience, skills, and projects.',
     type: 'website',
     images: ['/profile.jpg'],
   },
