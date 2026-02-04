@@ -34,7 +34,7 @@ export async function POST(req: Request) {
     // Initialize Resend
     const resend = new Resend(resendApiKey);
 
-    // Send email via Resend
+    // Send notification email to site owner
     await resend.emails.send({
       from: process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev',
       to: process.env.CONTACT_EMAIL || 'li_zheng@outlook.com',
@@ -50,7 +50,55 @@ export async function POST(req: Request) {
       `,
     });
 
-    console.log('Email sent successfully via Resend');
+    // Send confirmation email to user
+    await resend.emails.send({
+      from: process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev',
+      to: email,
+      subject: "Thanks for reaching out!",
+      text: `Hi ${name},\n\nThanks for your message! I appreciate you taking the time to reach out.\n\nI'll review your message and get back to you soon.\n\nBest regards,\nLi Zheng`,
+      html: `
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          </head>
+          <body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif; background-color: #f9fafb;">
+            <div style="max-width: 600px; margin: 0 auto; padding: 40px 20px;">
+              <div style="background: white; border-radius: 12px; padding: 32px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);">
+                <h1 style="margin: 0 0 24px 0; font-size: 24px; font-weight: 600; color: #111827;">
+                  Thanks for reaching out!
+                </h1>
+                <p style="margin: 0 0 16px 0; font-size: 15px; line-height: 1.6; color: #374151;">
+                  Hi ${name},
+                </p>
+                <p style="margin: 0 0 16px 0; font-size: 15px; line-height: 1.6; color: #374151;">
+                  Thanks for your message! I appreciate you taking the time to reach out.
+                </p>
+                <p style="margin: 0 0 24px 0; font-size: 15px; line-height: 1.6; color: #374151;">
+                  I'll review your message and get back to you soon.
+                </p>
+                <div style="padding-top: 24px; border-top: 1px solid #e5e7eb;">
+                  <p style="margin: 0 0 4px 0; font-size: 15px; font-weight: 500; color: #111827;">
+                    Best regards,
+                  </p>
+                  <p style="margin: 0; font-size: 15px; color: #6b7280;">
+                    Li Zheng
+                  </p>
+                </div>
+              </div>
+              <div style="margin-top: 24px; text-align: center;">
+                <p style="margin: 0; font-size: 13px; color: #9ca3af;">
+                  This is an automated confirmation that we received your message.
+                </p>
+              </div>
+            </div>
+          </body>
+        </html>
+      `,
+    });
+
+    console.log('Emails sent successfully via Resend');
 
     return new Response(JSON.stringify({ success: true }), {
       status: 200,
