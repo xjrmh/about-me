@@ -2,9 +2,19 @@
 
 import Image from 'next/image';
 import { useLanguage } from '@/lib/language-context';
+import { useEffect, useState } from 'react';
 
 export function ProfileSection() {
   const { t } = useLanguage();
+  const [lastUpdated, setLastUpdated] = useState<string>('');
+
+  useEffect(() => {
+    // Fetch last updated date from API
+    fetch('/api/last-updated')
+      .then(res => res.json())
+      .then(data => setLastUpdated(data.date))
+      .catch(err => console.error('Failed to fetch last updated date:', err));
+  }, []);
 
   return (
     <div className="flex flex-col h-full p-4 sm:p-6 lg:p-8">
@@ -191,6 +201,11 @@ export function ProfileSection() {
               </p>
             </div>
           </div>
+          {lastUpdated && (
+            <p className="text-[10px] sm:text-[11px] text-muted-foreground/40 mt-6 sm:mt-8">
+              Last updated: {lastUpdated}
+            </p>
+          )}
         </div>
       </div>
     </div>
