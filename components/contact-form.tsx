@@ -17,22 +17,32 @@ export function ContactForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log('Contact form submitted with data:', formData);
     setIsSubmitting(true);
 
     try {
-      // Send to your email endpoint (we'll create this)
+      console.log('Sending POST request to /api/contact');
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
 
+      console.log('Response status:', response.status);
+      const responseData = await response.json();
+      console.log('Response data:', responseData);
+
       if (response.ok) {
+        console.log('Email sent successfully!');
         setIsSubmitted(true);
         setFormData({ name: '', email: '', message: '' });
+      } else {
+        console.error('Failed to send email, status:', response.status);
+        alert(`Failed to send message: ${response.statusText}`);
       }
     } catch (error) {
       console.error('Failed to send message:', error);
+      alert(`Error sending message: ${error}`);
     } finally {
       setIsSubmitting(false);
     }
