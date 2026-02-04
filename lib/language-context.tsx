@@ -50,6 +50,8 @@ const translations: Record<Language, Record<string, string>> = {
     'edu.osu.date': '2012 - 2016',
 
     // Projects
+    'proj.flat': 'Close with Flat',
+    'proj.flat.desc': 'Modern home buying experience with reduced cost through flat-fee transaction services',
     'proj.gomoku': 'Gomoku Game',
     'proj.gomoku.desc': 'iOS game featuring AI opponent and local multiplayer',
     'proj.timer': 'Work Focus Timer',
@@ -106,6 +108,8 @@ const translations: Record<Language, Record<string, string>> = {
     'edu.osu.date': '2012 - 2016',
 
     // Projects
+    'proj.flat': 'Close with Flat',
+    'proj.flat.desc': '通过固定费率交易服务，提供低成本的现代购房体验',
     'proj.gomoku': '五子棋游戏',
     'proj.gomoku.desc': '支持AI对战和本地双人对战的iOS游戏',
     'proj.timer': '专注工作计时器',
