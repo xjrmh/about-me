@@ -148,7 +148,7 @@ export function ProfileSection() {
           <div className="space-y-3 sm:space-y-4 lg:space-y-5">
             <div className="space-y-1">
               <a
-                href="https://experiment-designer.vercel.app"
+                href="https://experimentdesigner.xjrmh.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-xs sm:text-sm font-medium text-foreground hover:text-foreground/70 transition-colors inline-flex items-center gap-1"
