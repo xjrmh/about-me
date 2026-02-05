@@ -56,6 +56,8 @@ const translations: Record<Language, Record<string, string>> = {
     'proj.gomoku.desc': 'iOS game featuring AI opponent and local multiplayer',
     'proj.timer': 'Work Focus Timer',
     'proj.timer.desc': 'Minimalist productivity timer for focused work sessions',
+    'proj.experimentdesigner': 'Experiment Designer',
+    'proj.experimentdesigner.desc': 'Tool for designing and running statistical experiments',
 
     // Chat Section
     'chat.header': 'Chat',
@@ -125,6 +127,8 @@ const translations: Record<Language, Record<string, string>> = {
     'proj.gomoku.desc': '支持AI对战和本地双人对战的iOS游戏',
     'proj.timer': '专注工作计时器',
     'proj.timer.desc': '简约风格的专注工作计时工具',
+    'proj.experimentdesigner': '实验设计工具',
+    'proj.experimentdesigner.desc': '用于设计和运行统计实验的工具',
 
     // Chat Section
     'chat.header': '对话',
