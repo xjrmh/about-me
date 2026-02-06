@@ -8,9 +8,46 @@ export function ProfileSection({ showStickyHeader = true }: { showStickyHeader?:
   const { t, language } = useLanguage();
   const [lastUpdatedTimestamp, setLastUpdatedTimestamp] = useState<string>('');
   const [spinAnim, setSpinAnim] = useState<string | null>(null);
+  const [continuousSpin, setContinuousSpin] = useState<string | null>(null);
   const [stickyOpacity, setStickyOpacity] = useState(0);
   const nameRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const longPressTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const isLongPress = useRef(false);
+  const profilePhotoRef = useRef<HTMLDivElement>(null);
+  const rafId = useRef<number | null>(null);
+  const spinAngle = useRef(0);
+  const spinSpeed = useRef(0);
+  const spinDirection = useRef(1);
+  const lastFrameTime = useRef(0);
+
+  const stopContinuousSpin = useCallback(() => {
+    if (rafId.current !== null) {
+      cancelAnimationFrame(rafId.current);
+      rafId.current = null;
+    }
+    spinAngle.current = 0;
+    spinSpeed.current = 0;
+    setContinuousSpin(null);
+    if (profilePhotoRef.current) {
+      profilePhotoRef.current.style.transform = '';
+    }
+  }, []);
+
+  const animateSpin = useCallback((timestamp: number) => {
+    if (!lastFrameTime.current) lastFrameTime.current = timestamp;
+    const delta = (timestamp - lastFrameTime.current) / 1000;
+    lastFrameTime.current = timestamp;
+
+    // Accelerate: increase speed by 120 deg/s², cap at 2400 deg/s
+    spinSpeed.current = Math.min(2400, spinSpeed.current + 120 * delta);
+    spinAngle.current += spinDirection.current * spinSpeed.current * delta;
+
+    if (profilePhotoRef.current) {
+      profilePhotoRef.current.style.transform = `rotate(${spinAngle.current}deg)`;
+    }
+    rafId.current = requestAnimationFrame(animateSpin);
+  }, []);
 
   useEffect(() => {
     // Fetch last updated date from API
@@ -71,15 +108,49 @@ export function ProfileSection({ showStickyHeader = true }: { showStickyHeader?:
         {/* Profile Photo */}
         <div className="flex justify-center pt-1 sm:pt-0">
           <div
-            className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden cursor-pointer"
-            style={spinAnim ? { animation: `${spinAnim} 0.7s ease-in-out` } : undefined}
+            ref={profilePhotoRef}
+            className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden cursor-pointer select-none"
+            style={
+              spinAnim && !continuousSpin
+                ? { animation: `${spinAnim} 0.7s ease-in-out` }
+                : undefined
+            }
             onClick={() => {
-              if (!spinAnim) {
+              if (isLongPress.current) return;
+              if (!spinAnim && !continuousSpin) {
                 const anim = Math.random() < 0.5 ? 'spin-once-cw' : 'spin-once-ccw';
                 setSpinAnim(anim);
                 setTimeout(() => setSpinAnim(null), 700);
               }
             }}
+            onPointerDown={() => {
+              isLongPress.current = false;
+              longPressTimer.current = setTimeout(() => {
+                isLongPress.current = true;
+                setSpinAnim(null);
+                spinAngle.current = 0;
+                spinSpeed.current = 0;
+                lastFrameTime.current = 0;
+                spinDirection.current = Math.random() < 0.5 ? 1 : -1;
+                setContinuousSpin('active');
+                rafId.current = requestAnimationFrame(animateSpin);
+              }, 500);
+            }}
+            onPointerUp={() => {
+              if (longPressTimer.current) {
+                clearTimeout(longPressTimer.current);
+                longPressTimer.current = null;
+              }
+              stopContinuousSpin();
+            }}
+            onPointerLeave={() => {
+              if (longPressTimer.current) {
+                clearTimeout(longPressTimer.current);
+                longPressTimer.current = null;
+              }
+              stopContinuousSpin();
+            }}
+            onContextMenu={(e) => e.preventDefault()}
           >
             <Image
               src="/profile.jpg"

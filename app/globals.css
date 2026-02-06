@@ -131,6 +131,7 @@
     to { transform: rotate(-360deg); }
   }
 
+
   /* Prevent layout shift */
   .h-screen {
     height: 100dvh;
