@@ -59,7 +59,7 @@ export function ChatSection({ onMessagesChange, showProfile, onToggleProfile }: 
           {messages.length === 0 ? (
             <div className="flex items-center justify-center h-full min-h-[80px] sm:min-h-[100px] lg:min-h-[200px]">
               <div className="text-center space-y-2.5 sm:space-y-3 lg:space-y-6 max-w-md px-4">
-                <p className="text-xs sm:text-sm text-muted-foreground/70">
+                <p className="text-sm text-muted-foreground/70">
                   {t('chat.welcome')}
                 </p>
                 <div className="flex flex-wrap gap-1.5 sm:gap-2 justify-center">
@@ -76,7 +76,7 @@ export function ChatSection({ onMessagesChange, showProfile, onToggleProfile }: 
                         inputElement.focus();
                       }
                     }}
-                    className="px-2.5 py-1 sm:px-3 sm:py-1.5 text-[11px] sm:text-xs text-muted-foreground/70 hover:text-foreground border border-border/50 hover:border-border rounded-full transition-colors"
+                    className="px-2.5 py-1 sm:px-3 sm:py-1.5 text-xs text-muted-foreground/70 hover:text-foreground border border-border/50 hover:border-border rounded-full transition-colors"
                   >
                     {t('chat.btn.technologies')}
                   </button>
@@ -93,7 +93,7 @@ export function ChatSection({ onMessagesChange, showProfile, onToggleProfile }: 
                         inputElement.focus();
                       }
                     }}
-                    className="px-2.5 py-1 sm:px-3 sm:py-1.5 text-[11px] sm:text-xs text-muted-foreground/70 hover:text-foreground border border-border/50 hover:border-border rounded-full transition-colors"
+                    className="px-2.5 py-1 sm:px-3 sm:py-1.5 text-xs text-muted-foreground/70 hover:text-foreground border border-border/50 hover:border-border rounded-full transition-colors"
                   >
                     {t('chat.btn.projects')}
                   </button>
@@ -110,7 +110,7 @@ export function ChatSection({ onMessagesChange, showProfile, onToggleProfile }: 
                         inputElement.focus();
                       }
                     }}
-                    className="px-2.5 py-1 sm:px-3 sm:py-1.5 text-[11px] sm:text-xs text-muted-foreground/70 hover:text-foreground border border-border/50 hover:border-border rounded-full transition-colors"
+                    className="px-2.5 py-1 sm:px-3 sm:py-1.5 text-xs text-muted-foreground/70 hover:text-foreground border border-border/50 hover:border-border rounded-full transition-colors"
                   >
                     {t('chat.btn.whatsNext')}
                   </button>
@@ -127,7 +127,7 @@ export function ChatSection({ onMessagesChange, showProfile, onToggleProfile }: 
                         inputElement.focus();
                       }
                     }}
-                    className="px-2.5 py-1 sm:px-3 sm:py-1.5 text-[11px] sm:text-xs text-muted-foreground/70 hover:text-foreground border border-border/50 hover:border-border rounded-full transition-colors"
+                    className="px-2.5 py-1 sm:px-3 sm:py-1.5 text-xs text-muted-foreground/70 hover:text-foreground border border-border/50 hover:border-border rounded-full transition-colors"
                   >
                     {t('chat.btn.collaborate')}
                   </button>
@@ -153,7 +153,7 @@ export function ChatSection({ onMessagesChange, showProfile, onToggleProfile }: 
 
           {/* Error message */}
           {error && (
-            <div className="text-destructive/80 text-xs sm:text-sm">
+            <div className="text-destructive/80 text-sm">
               {error.message}
             </div>
           )}

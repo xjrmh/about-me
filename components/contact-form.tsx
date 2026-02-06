@@ -60,7 +60,7 @@ export function ContactForm() {
 
   return (
     <div className="bg-muted/30 rounded-lg p-4 space-y-3">
-      <p className="text-xs sm:text-sm text-foreground/80 mb-3">
+      <p className="text-sm text-foreground/80 mb-3">
         {t('contact.prompt')}
       </p>
       <form onSubmit={handleSubmit} className="space-y-3">

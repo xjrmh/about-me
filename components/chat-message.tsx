@@ -47,7 +47,7 @@ export function ChatMessage({ role, content }: ChatMessageProps) {
               : 'bg-transparent text-foreground'
           )}
         >
-          <p className="text-xs sm:text-[13px] leading-relaxed whitespace-pre-wrap break-words">{displayContent}</p>
+          <p className="text-[13px] leading-relaxed whitespace-pre-wrap break-words">{displayContent}</p>
         </div>
 
         {/* Show contact form if triggered */}

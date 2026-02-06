@@ -7,7 +7,7 @@ export function LanguageSelector() {
 
   return (
     <div className="fixed top-3 left-3 z-50">
-      <div className="flex items-center text-xs sm:text-sm text-muted-foreground/70 px-2 py-1">
+      <div className="flex items-center text-sm text-muted-foreground/70 px-2 py-1">
         <button
           onClick={() => setLanguage('en')}
           className={`px-1.5 py-0.5 transition-colors ${
