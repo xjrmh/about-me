@@ -57,17 +57,17 @@ export function ProfileSection({ showStickyHeader = true }: { showStickyHeader?:
     : '';
 
   return (
-    <div ref={containerRef} className="flex flex-col min-h-full p-4 sm:p-6 lg:p-8 relative">
+    <div ref={containerRef} className="flex flex-col min-h-full relative">
       {/* Sticky name header */}
       {showStickyHeader && (
         <div
-          className="sticky top-0 z-10 -mx-4 sm:-mx-6 lg:-mx-8 -mt-4 sm:-mt-6 lg:-mt-8 px-4 sm:px-6 lg:px-8 py-3 bg-background/95 backdrop-blur-sm border-b border-border/40 pointer-events-none"
+          className="sticky top-0 z-10 px-4 sm:px-6 lg:px-8 py-3 bg-background/95 backdrop-blur-sm border-b border-border/40 pointer-events-none"
           style={{ opacity: stickyOpacity, transition: 'opacity 0.1s ease-out' }}
         >
           <h1 className="text-xl sm:text-2xl font-medium text-center">{t('profile.name')}</h1>
         </div>
       )}
-      <div className="w-full max-w-2xl mx-auto space-y-4 sm:space-y-6 lg:space-y-8">
+      <div className="w-full max-w-2xl mx-auto space-y-4 sm:space-y-6 lg:space-y-8 pt-4 pb-2 px-3 sm:pt-6 sm:pb-2 sm:px-4 lg:pt-8 lg:pb-3 lg:px-6">
         {/* Profile Photo */}
         <div className="flex justify-center pt-1 sm:pt-0">
           <div
@@ -202,7 +202,7 @@ export function ProfileSection({ showStickyHeader = true }: { showStickyHeader?:
         </div>
 
         {/* Projects Section */}
-        <div className="space-y-2.5 sm:space-y-3 lg:space-y-4 pb-3 sm:pb-4 lg:pb-6">
+        <div className="space-y-2.5 sm:space-y-3 lg:space-y-4">
           <h2 className="text-xs sm:text-sm font-bold text-foreground/90 uppercase tracking-wide">{t('profile.projects')}</h2>
           <div className="space-y-3 sm:space-y-4 lg:space-y-5">
             <div className="space-y-1">
@@ -278,13 +278,15 @@ export function ProfileSection({ showStickyHeader = true }: { showStickyHeader?:
               </p>
             </div>
           </div>
-          {lastUpdated && (
-            <p className="text-[10px] sm:text-[11px] text-muted-foreground/40 mt-6 sm:mt-8">
-              {t('proj.lastFetched')} {lastUpdated}
-            </p>
-          )}
         </div>
       </div>
+      {lastUpdated && (
+        <div className="w-full max-w-2xl mx-auto mt-auto pt-3 sm:pt-4 pb-4 px-3 sm:px-4 lg:px-6">
+          <p className="text-[10px] sm:text-[11px] text-muted-foreground/40">
+            {t('proj.lastFetched')} {lastUpdated}
+          </p>
+        </div>
+      )}
     </div>
   );
 }
