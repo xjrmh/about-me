@@ -2,12 +2,15 @@
 
 import Image from 'next/image';
 import { useLanguage } from '@/lib/language-context';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 
 export function ProfileSection() {
   const { t, language } = useLanguage();
   const [lastUpdatedTimestamp, setLastUpdatedTimestamp] = useState<string>('');
   const [spinAnim, setSpinAnim] = useState<string | null>(null);
+  const [stickyOpacity, setStickyOpacity] = useState(0);
+  const nameRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // Fetch last updated date from API
@@ -16,6 +19,31 @@ export function ProfileSection() {
       .then(data => setLastUpdatedTimestamp(data.timestamp))
       .catch(err => console.error('Failed to fetch last updated date:', err));
   }, []);
+
+  const handleScroll = useCallback(() => {
+    if (!nameRef.current || !containerRef.current) return;
+    const scrollParent = containerRef.current.closest('.overflow-y-auto');
+    if (!scrollParent) return;
+    const nameRect = nameRef.current.getBoundingClientRect();
+    const containerRect = scrollParent.getBoundingClientRect();
+    const nameBottom = nameRect.bottom - containerRect.top;
+    const fadeStart = 40;
+    const fadeEnd = 0;
+    if (nameBottom <= fadeEnd) {
+      setStickyOpacity(1);
+    } else if (nameBottom >= fadeStart) {
+      setStickyOpacity(0);
+    } else {
+      setStickyOpacity(1 - (nameBottom - fadeEnd) / (fadeStart - fadeEnd));
+    }
+  }, []);
+
+  useEffect(() => {
+    const scrollParent = containerRef.current?.closest('.overflow-y-auto');
+    if (!scrollParent) return;
+    scrollParent.addEventListener('scroll', handleScroll, { passive: true });
+    return () => scrollParent.removeEventListener('scroll', handleScroll);
+  }, [handleScroll]);
 
   const lastUpdated = lastUpdatedTimestamp
     ? new Date(lastUpdatedTimestamp).toLocaleString(language === 'zh' ? 'zh-CN' : 'en-US', {
@@ -29,7 +57,14 @@ export function ProfileSection() {
     : '';
 
   return (
-    <div className="flex flex-col h-full p-4 sm:p-6 lg:p-8">
+    <div ref={containerRef} className="flex flex-col h-full p-4 sm:p-6 lg:p-8 relative">
+      {/* Sticky name header */}
+      <div
+        className="sticky top-0 z-10 -mx-4 sm:-mx-6 lg:-mx-8 -mt-4 sm:-mt-6 lg:-mt-8 px-4 sm:px-6 lg:px-8 py-3 bg-background/95 backdrop-blur-sm border-b border-border/40 pointer-events-none"
+        style={{ opacity: stickyOpacity, transition: 'opacity 0.1s ease-out' }}
+      >
+        <h1 className="text-xl sm:text-2xl font-medium text-center">{t('profile.name')}</h1>
+      </div>
       <div className="w-full max-w-2xl mx-auto space-y-4 sm:space-y-6 lg:space-y-8">
         {/* Profile Photo */}
         <div className="flex justify-center pt-1 sm:pt-0">
@@ -55,7 +90,7 @@ export function ProfileSection() {
         </div>
 
         {/* Name and Title */}
-        <div className="text-center space-y-1">
+        <div ref={nameRef} className="text-center space-y-1">
           <h1 className="text-xl sm:text-2xl font-medium">{t('profile.name')}</h1>
           <p className="text-xs sm:text-sm text-muted-foreground/80">{t('profile.title')}</p>
         </div>

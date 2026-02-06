@@ -12,7 +12,6 @@ export default function Home() {
 
   return (
     <div className="flex flex-col lg:flex-row h-screen overflow-hidden overflow-x-hidden bg-background relative fixed inset-0 lg:static w-full max-w-full">
-      {/* Language Selector */}
       <LanguageSelector />
 
       {/* Left Panel - Profile Section (Desktop: always visible, Mobile: conditional) */}
