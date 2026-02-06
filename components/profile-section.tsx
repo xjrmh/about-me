@@ -67,7 +67,7 @@ export function ProfileSection({ showStickyHeader = true }: { showStickyHeader?:
           <h1 className="text-2xl font-medium text-center">{t('profile.name')}</h1>
         </div>
       )}
-      <div className="w-full max-w-2xl mx-auto space-y-4 sm:space-y-6 lg:space-y-8 pt-4 pb-2 px-5 sm:pt-6 sm:pb-2 sm:px-4 lg:pt-8 lg:pb-3 lg:px-6">
+      <div className="w-full max-w-2xl mx-auto space-y-4 sm:space-y-6 lg:space-y-8 pt-4 pb-2 px-5 sm:pt-6 sm:pb-2 sm:px-4 lg:pt-8 lg:pb-3 lg:pl-3 lg:pr-3">
         {/* Profile Photo */}
         <div className="flex justify-center pt-1 sm:pt-0">
           <div
@@ -281,7 +281,7 @@ export function ProfileSection({ showStickyHeader = true }: { showStickyHeader?:
         </div>
       </div>
       {lastUpdated && (
-        <div className="w-full max-w-2xl mx-auto mt-auto pt-3 sm:pt-4 pb-4 px-5 sm:px-4 lg:px-6">
+        <div className="w-full max-w-2xl mx-auto mt-auto pt-3 sm:pt-4 pb-4 px-5 sm:px-4 lg:pl-3 lg:pr-3">
           <p className="text-[11px] text-muted-foreground/40">
             {t('proj.lastFetched')} {lastUpdated}
           </p>

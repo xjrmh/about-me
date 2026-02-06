@@ -6,11 +6,11 @@ export function LanguageSelector() {
   const { language, setLanguage } = useLanguage();
 
   return (
-    <div className="fixed top-3 left-5 z-50">
-      <div className="flex items-center text-sm text-muted-foreground/70 py-1">
+    <div className="fixed top-3 left-1.5 lg:left-9 z-50">
+      <div className="flex items-center text-sm text-muted-foreground/70 px-2 py-1">
         <button
           onClick={() => setLanguage('en')}
-          className={`px-px py-0.5 transition-colors ${
+          className={`px-1.5 py-0.5 transition-colors ${
             language === 'en'
               ? 'text-foreground font-medium'
               : 'hover:text-foreground/80'
@@ -21,7 +21,7 @@ export function LanguageSelector() {
         <span className="text-border">|</span>
         <button
           onClick={() => setLanguage('zh')}
-          className={`px-px py-0.5 transition-colors ${
+          className={`px-1.5 py-0.5 transition-colors ${
             language === 'zh'
               ? 'text-foreground font-medium'
               : 'hover:text-foreground/80'
