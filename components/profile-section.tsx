@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useLanguage } from '@/lib/language-context';
 import { useEffect, useState, useRef, useCallback } from 'react';
 
-export function ProfileSection() {
+export function ProfileSection({ showStickyHeader = true }: { showStickyHeader?: boolean } = {}) {
   const { t, language } = useLanguage();
   const [lastUpdatedTimestamp, setLastUpdatedTimestamp] = useState<string>('');
   const [spinAnim, setSpinAnim] = useState<string | null>(null);
@@ -59,12 +59,14 @@ export function ProfileSection() {
   return (
     <div ref={containerRef} className="flex flex-col min-h-full p-4 sm:p-6 lg:p-8 relative">
       {/* Sticky name header */}
-      <div
-        className="sticky top-0 z-10 -mx-4 sm:-mx-6 lg:-mx-8 -mt-4 sm:-mt-6 lg:-mt-8 px-4 sm:px-6 lg:px-8 py-3 bg-background/95 backdrop-blur-sm border-b border-border/40 pointer-events-none"
-        style={{ opacity: stickyOpacity, transition: 'opacity 0.1s ease-out' }}
-      >
-        <h1 className="text-xl sm:text-2xl font-medium text-center">{t('profile.name')}</h1>
-      </div>
+      {showStickyHeader && (
+        <div
+          className="sticky top-0 z-10 -mx-4 sm:-mx-6 lg:-mx-8 -mt-4 sm:-mt-6 lg:-mt-8 px-4 sm:px-6 lg:px-8 py-3 bg-background/95 backdrop-blur-sm border-b border-border/40 pointer-events-none"
+          style={{ opacity: stickyOpacity, transition: 'opacity 0.1s ease-out' }}
+        >
+          <h1 className="text-xl sm:text-2xl font-medium text-center">{t('profile.name')}</h1>
+        </div>
+      )}
       <div className="w-full max-w-2xl mx-auto space-y-4 sm:space-y-6 lg:space-y-8">
         {/* Profile Photo */}
         <div className="flex justify-center pt-1 sm:pt-0">
