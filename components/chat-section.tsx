@@ -76,7 +76,7 @@ export function ChatSection({ onMessagesChange, showProfile, onToggleProfile }: 
                         inputElement.focus();
                       }
                     }}
-                    className="px-2.5 py-1 sm:px-3 sm:py-1.5 text-xs text-muted-foreground/70 hover:text-foreground border border-border/50 hover:border-border rounded-full transition-colors"
+                    className="px-2.5 py-1 sm:px-3 sm:py-1.5 text-[11px] text-muted-foreground/70 hover:text-foreground border border-border/50 hover:border-border rounded-full transition-colors"
                   >
                     {t('chat.btn.technologies')}
                   </button>
@@ -93,7 +93,7 @@ export function ChatSection({ onMessagesChange, showProfile, onToggleProfile }: 
                         inputElement.focus();
                       }
                     }}
-                    className="px-2.5 py-1 sm:px-3 sm:py-1.5 text-xs text-muted-foreground/70 hover:text-foreground border border-border/50 hover:border-border rounded-full transition-colors"
+                    className="px-2.5 py-1 sm:px-3 sm:py-1.5 text-[11px] text-muted-foreground/70 hover:text-foreground border border-border/50 hover:border-border rounded-full transition-colors"
                   >
                     {t('chat.btn.projects')}
                   </button>
@@ -110,7 +110,7 @@ export function ChatSection({ onMessagesChange, showProfile, onToggleProfile }: 
                         inputElement.focus();
                       }
                     }}
-                    className="px-2.5 py-1 sm:px-3 sm:py-1.5 text-xs text-muted-foreground/70 hover:text-foreground border border-border/50 hover:border-border rounded-full transition-colors"
+                    className="px-2.5 py-1 sm:px-3 sm:py-1.5 text-[11px] text-muted-foreground/70 hover:text-foreground border border-border/50 hover:border-border rounded-full transition-colors"
                   >
                     {t('chat.btn.whatsNext')}
                   </button>
@@ -127,7 +127,7 @@ export function ChatSection({ onMessagesChange, showProfile, onToggleProfile }: 
                         inputElement.focus();
                       }
                     }}
-                    className="px-2.5 py-1 sm:px-3 sm:py-1.5 text-xs text-muted-foreground/70 hover:text-foreground border border-border/50 hover:border-border rounded-full transition-colors"
+                    className="px-2.5 py-1 sm:px-3 sm:py-1.5 text-[11px] text-muted-foreground/70 hover:text-foreground border border-border/50 hover:border-border rounded-full transition-colors"
                   >
                     {t('chat.btn.collaborate')}
                   </button>
