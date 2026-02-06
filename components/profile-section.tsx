@@ -57,7 +57,7 @@ export function ProfileSection() {
     : '';
 
   return (
-    <div ref={containerRef} className="flex flex-col h-full p-4 sm:p-6 lg:p-8 relative">
+    <div ref={containerRef} className="flex flex-col min-h-full p-4 sm:p-6 lg:p-8 relative">
       {/* Sticky name header */}
       <div
         className="sticky top-0 z-10 -mx-4 sm:-mx-6 lg:-mx-8 -mt-4 sm:-mt-6 lg:-mt-8 px-4 sm:px-6 lg:px-8 py-3 bg-background/95 backdrop-blur-sm border-b border-border/40 pointer-events-none"
