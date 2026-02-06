@@ -5,28 +5,50 @@ import { useLanguage } from '@/lib/language-context';
 import { useEffect, useState } from 'react';
 
 export function ProfileSection() {
-  const { t } = useLanguage();
-  const [lastUpdated, setLastUpdated] = useState<string>('');
+  const { t, language } = useLanguage();
+  const [lastUpdatedTimestamp, setLastUpdatedTimestamp] = useState<string>('');
+  const [spinAnim, setSpinAnim] = useState<string | null>(null);
 
   useEffect(() => {
     // Fetch last updated date from API
     fetch('/api/last-updated')
       .then(res => res.json())
-      .then(data => setLastUpdated(data.date))
+      .then(data => setLastUpdatedTimestamp(data.timestamp))
       .catch(err => console.error('Failed to fetch last updated date:', err));
   }, []);
+
+  const lastUpdated = lastUpdatedTimestamp
+    ? new Date(lastUpdatedTimestamp).toLocaleString(language === 'zh' ? 'zh-CN' : 'en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit',
+        timeZoneName: 'short',
+      })
+    : '';
 
   return (
     <div className="flex flex-col h-full p-4 sm:p-6 lg:p-8">
       <div className="w-full max-w-2xl mx-auto space-y-4 sm:space-y-6 lg:space-y-8">
         {/* Profile Photo */}
         <div className="flex justify-center pt-1 sm:pt-0">
-          <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden">
+          <div
+            className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden cursor-pointer"
+            style={spinAnim ? { animation: `${spinAnim} 0.7s ease-in-out` } : undefined}
+            onClick={() => {
+              if (!spinAnim) {
+                const anim = Math.random() < 0.5 ? 'spin-once-cw' : 'spin-once-ccw';
+                setSpinAnim(anim);
+                setTimeout(() => setSpinAnim(null), 700);
+              }
+            }}
+          >
             <Image
               src="/profile.jpg"
               alt="Li Zheng"
               fill
-              className="object-cover"
+              className="object-cover pointer-events-none"
               priority
             />
           </div>
@@ -221,7 +243,7 @@ export function ProfileSection() {
           </div>
           {lastUpdated && (
             <p className="text-[10px] sm:text-[11px] text-muted-foreground/40 mt-6 sm:mt-8">
-              Last fetched: {lastUpdated}
+              {t('proj.lastFetched')} {lastUpdated}
             </p>
           )}
         </div>

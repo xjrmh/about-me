@@ -121,6 +121,16 @@
     }
   }
 
+  @keyframes spin-once-cw {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  @keyframes spin-once-ccw {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(-360deg); }
+  }
+
   /* Prevent layout shift */
   .h-screen {
     height: 100dvh;
