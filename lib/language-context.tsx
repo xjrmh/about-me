@@ -59,6 +59,8 @@ const translations: Record<Language, Record<string, string>> = {
     'proj.lastFetched': 'Last fetched:',
     'proj.experimentdesigner': 'Experiment Designer',
     'proj.experimentdesigner.desc': 'Tool for designing and running statistical experiments',
+    'proj.northstar': 'NorthStar',
+    'proj.northstar.desc': 'All-in-one solution for metric creation, management, and reporting with native AI integration',
 
     // Chat Section
     'chat.header': 'Chat',
@@ -131,6 +133,8 @@ const translations: Record<Language, Record<string, string>> = {
     'proj.lastFetched': '最后获取：',
     'proj.experimentdesigner': '实验设计工具',
     'proj.experimentdesigner.desc': '用于设计和运行统计实验的工具',
+    'proj.northstar': 'NorthStar',
+    'proj.northstar.desc': '集指标创建、管理与报表于一体，并原生集成 AI 的平台',
 
     // Chat Section
     'chat.header': '对话',

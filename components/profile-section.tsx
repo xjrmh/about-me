@@ -257,21 +257,6 @@ export function ProfileSection({ showStickyHeader = true }: { showStickyHeader?:
           </div>
         </div>
 
-        {/* Education Section */}
-        <div className="space-y-2.5 sm:space-y-3 lg:space-y-4">
-          <h2 className="text-sm font-bold text-foreground/90 uppercase tracking-wide">{t('profile.education')}</h2>
-          <div className="space-y-3 sm:space-y-4 lg:space-y-5">
-            <div className="space-y-1">
-              <h3 className="text-sm font-medium text-foreground">{t('edu.duke.degree')}</h3>
-              <p className="text-xs text-muted-foreground/70">{t('edu.duke.school')} • {t('edu.duke.date')}</p>
-            </div>
-            <div className="space-y-1">
-              <h3 className="text-sm font-medium text-foreground">{t('edu.osu.degree')}</h3>
-              <p className="text-xs text-muted-foreground/70">{t('edu.osu.school')} • {t('edu.osu.date')}</p>
-            </div>
-          </div>
-        </div>
-
         {/* Projects Section */}
         <div className="space-y-2.5 sm:space-y-3 lg:space-y-4">
           <h2 className="text-sm font-bold text-foreground/90 uppercase tracking-wide">{t('profile.projects')}</h2>
@@ -292,6 +277,24 @@ export function ProfileSection({ showStickyHeader = true }: { showStickyHeader?:
               </a>
               <p className="text-xs text-muted-foreground/60 leading-relaxed">
                 {t('proj.experimentdesigner.desc')}
+              </p>
+            </div>
+            <div className="space-y-1">
+              <a
+                href="https://northstar.xjrmh.com/auth/signin"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm font-medium text-foreground hover:text-foreground/70 transition-colors inline-flex items-center gap-1"
+              >
+                {t('proj.northstar')}
+                <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                  <polyline points="15 3 21 3 21 9"/>
+                  <line x1="10" y1="14" x2="21" y2="3"/>
+                </svg>
+              </a>
+              <p className="text-xs text-muted-foreground/60 leading-relaxed">
+                {t('proj.northstar.desc')}
               </p>
             </div>
             <div className="space-y-1">
@@ -347,6 +350,21 @@ export function ProfileSection({ showStickyHeader = true }: { showStickyHeader?:
               <p className="text-xs text-muted-foreground/60 leading-relaxed">
                 {t('proj.timer.desc')}
               </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Education Section */}
+        <div className="space-y-2.5 sm:space-y-3 lg:space-y-4">
+          <h2 className="text-sm font-bold text-foreground/90 uppercase tracking-wide">{t('profile.education')}</h2>
+          <div className="space-y-3 sm:space-y-4 lg:space-y-5">
+            <div className="space-y-1">
+              <h3 className="text-sm font-medium text-foreground">{t('edu.duke.degree')}</h3>
+              <p className="text-xs text-muted-foreground/70">{t('edu.duke.school')} • {t('edu.duke.date')}</p>
+            </div>
+            <div className="space-y-1">
+              <h3 className="text-sm font-medium text-foreground">{t('edu.osu.degree')}</h3>
+              <p className="text-xs text-muted-foreground/70">{t('edu.osu.school')} • {t('edu.osu.date')}</p>
             </div>
           </div>
         </div>
