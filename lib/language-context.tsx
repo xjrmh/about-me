@@ -25,7 +25,7 @@ const translations: Record<Language, Record<string, string>> = {
     'exp.cofounder.date': 'Mar 2025 - Present',
     'exp.cofounder.desc': 'Empowering modern homebuyers with expert transaction services, leveraging in-house agentic AI',
 
-    'exp.meta.title': 'Senior Data Scientist, Tech Lead',
+    'exp.meta.title': 'Staff Data Scientist, Tech Lead',
     'exp.meta.company': 'Meta (Instagram / Messenger)',
     'exp.meta.date': 'Sep 2021 - Jan 2026',
     'exp.meta.desc': 'Led IG Search × MetaAI integration and E2EE global launch on Messenger',
@@ -99,7 +99,7 @@ const translations: Record<Language, Record<string, string>> = {
     'exp.cofounder.date': '2025年3月 - 至今',
     'exp.cofounder.desc': '利用自研AI代理技术，为现代购房者提供专业交易服务',
 
-    'exp.meta.title': '高级数据科学家，技术负责人',
+    'exp.meta.title': '首席数据科学家，技术负责人',
     'exp.meta.company': 'Meta（Instagram / Messenger）',
     'exp.meta.date': '2021年9月 - 2026年1月',
     'exp.meta.desc': '主导IG搜索与MetaAI集成，以及Messenger端到端加密全球上线',
