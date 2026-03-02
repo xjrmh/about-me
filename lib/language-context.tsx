@@ -52,6 +52,8 @@ const translations: Record<Language, Record<string, string>> = {
     // Projects
     'proj.flat': 'Close with Flat',
     'proj.flat.desc': 'Modern home buying experience with reduced cost through flat-fee transaction services',
+    'proj.aterminal': 'Alpha Terminal',
+    'proj.aterminal.desc': 'AI-powered financial intelligence dashboard that uses LLMs and real-time data to run modular analyses',
     'proj.gomoku': 'Gomoku Game',
     'proj.gomoku.desc': 'iOS game featuring AI opponent and local multiplayer',
     'proj.timer': 'Work Focus Timer',
@@ -126,6 +128,8 @@ const translations: Record<Language, Record<string, string>> = {
     // Projects
     'proj.flat': 'Close with Flat',
     'proj.flat.desc': '通过固定费率交易服务，提供低成本的现代购房体验',
+    'proj.aterminal': 'Alpha Terminal',
+    'proj.aterminal.desc': 'AI驱动的金融智能仪表盘，利用多种大语言模型和实时网络数据进行模块化分析',
     'proj.gomoku': '五子棋游戏',
     'proj.gomoku.desc': '支持AI对战和本地双人对战的iOS游戏',
     'proj.timer': '专注工作计时器',
