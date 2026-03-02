@@ -19,6 +19,10 @@ const translations: Record<Language, Record<string, string>> = {
     'profile.education': 'Education',
     'profile.projects': 'Projects',
 
+    // Mobile tabs
+    'tab.experience': 'Experience',
+    'tab.projects': 'Projects',
+
     // Experience
     'exp.meta.title': 'Staff Data Scientist, Tech Lead',
     'exp.meta.company': 'Meta (Instagram / Messenger)',
@@ -123,6 +127,10 @@ const translations: Record<Language, Record<string, string>> = {
     'profile.experience': '工作经历',
     'profile.education': '教育背景',
     'profile.projects': '个人项目',
+
+    // Mobile tabs
+    'tab.experience': '工作经历',
+    'tab.projects': '个人项目',
 
     // Experience
     'exp.meta.title': '首席数据科学家，技术负责人',

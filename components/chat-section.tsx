@@ -13,9 +13,10 @@ interface ChatSectionProps {
   onMessagesChange: (hasMessages: boolean) => void;
   showProfile: boolean;
   onToggleProfile: () => void;
+  hideHeader?: boolean;
 }
 
-export function ChatSection({ onMessagesChange, showProfile, onToggleProfile }: ChatSectionProps) {
+export function ChatSection({ onMessagesChange, showProfile, onToggleProfile, hideHeader = false }: ChatSectionProps) {
   const { t } = useLanguage();
   const { messages, input, handleInputChange, handleSubmit, isLoading, error } =
     useChat({
@@ -38,7 +39,7 @@ export function ChatSection({ onMessagesChange, showProfile, onToggleProfile }: 
   return (
     <div className="flex flex-col h-full w-full max-w-full overflow-x-hidden">
       {/* Header with profile toggle (mobile only, shown when messages exist) */}
-      {messages.length > 0 && (
+      {messages.length > 0 && !hideHeader && (
         <div className="lg:hidden border-b border-border/40 px-4 py-3 flex items-center justify-between">
           <h2 className="text-sm font-medium">{t('chat.header')}</h2>
           <Button

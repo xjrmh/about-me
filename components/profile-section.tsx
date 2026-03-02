@@ -95,7 +95,7 @@ function ExperienceItem({ prefix, t }: { prefix: string; t: (key: string) => str
   );
 }
 
-export function ProfileSection({ showStickyHeader = true }: { showStickyHeader?: boolean } = {}) {
+export function ProfileSection({ showStickyHeader = true, experienceOnly = false }: { showStickyHeader?: boolean; experienceOnly?: boolean } = {}) {
   const { t, language } = useLanguage();
   const [lastUpdatedTimestamp, setLastUpdatedTimestamp] = useState<string>('');
   const [spinAnim, setSpinAnim] = useState<string | null>(null);
@@ -187,7 +187,7 @@ export function ProfileSection({ showStickyHeader = true }: { showStickyHeader?:
   return (
     <div ref={containerRef} className="flex flex-col min-h-full relative">
       {/* Sticky name header */}
-      {showStickyHeader && (
+      {showStickyHeader && !experienceOnly && (
         <div
           className="sticky top-0 z-10 px-4 sm:px-6 lg:px-8 py-3 bg-background/95 backdrop-blur-sm border-b border-border/40 pointer-events-none"
           style={{ opacity: stickyOpacity, transition: 'opacity 0.1s ease-out' }}
@@ -195,7 +195,9 @@ export function ProfileSection({ showStickyHeader = true }: { showStickyHeader?:
           <h1 className="text-2xl font-medium text-center">{t('profile.name')}</h1>
         </div>
       )}
-      <div className="w-full max-w-2xl mx-auto space-y-4 sm:space-y-6 lg:space-y-8 pt-4 pb-2 px-5 sm:pt-6 sm:pb-2 sm:px-4 lg:pt-8 lg:pb-3 lg:pl-3 lg:pr-3">
+      <div className={`w-full max-w-2xl mx-auto space-y-4 sm:space-y-6 lg:space-y-8 ${experienceOnly ? 'pt-2 pb-2 px-5' : 'pt-4 pb-2 px-5 sm:pt-6 sm:pb-2 sm:px-4 lg:pt-8 lg:pb-3 lg:pl-3 lg:pr-3'}`}>
+        {!experienceOnly && (
+          <>
         {/* Profile Photo */}
         <div className="flex justify-center pt-1 sm:pt-0">
           <div
@@ -312,6 +314,8 @@ export function ProfileSection({ showStickyHeader = true }: { showStickyHeader?:
             </svg>
           </a>
         </div>
+          </>
+        )}
 
         {/* Experience Section */}
         <div className="space-y-2.5 sm:space-y-3 lg:space-y-4">
