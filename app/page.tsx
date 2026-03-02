@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { ProfileSection } from '@/components/profile-section';
+import { ProjectsSection } from '@/components/projects-section';
 import { ChatSection } from '@/components/chat-section';
 import { Button } from '@/components/ui/button';
 import { LanguageSelector } from '@/components/language-selector';
@@ -16,13 +17,21 @@ export default function Home() {
         <LanguageSelector />
       </div>
 
-      {/* Left Panel - Profile Section (Desktop: always visible, Mobile: conditional) */}
+      {/* Left Panel - Profile/Experience Section */}
       <div className={`
-        w-full max-w-full lg:w-1/2 border-b lg:border-b-0 lg:border-r border-border/40 overflow-y-auto overflow-x-hidden
+        w-full max-w-full lg:w-1/3 border-b lg:border-b-0 lg:border-r border-border/40 overflow-y-auto overflow-x-hidden lg:px-2
         ${hasMessages ? 'max-h-0 lg:max-h-none' : 'max-h-[70vh] lg:max-h-none'}
         lg:block
       `}>
         <ProfileSection />
+      </div>
+
+      {/* Middle Panel - Projects Section */}
+      <div className={`
+        w-full max-w-full lg:w-1/3 border-b lg:border-b-0 lg:border-r border-border/40 overflow-y-auto overflow-x-hidden lg:px-2
+        ${hasMessages ? 'hidden lg:block' : ''}
+      `}>
+        <ProjectsSection />
       </div>
 
       {/* Mobile Profile Overlay (slides in from bottom) */}
@@ -64,7 +73,7 @@ export default function Home() {
       )}
 
       {/* Right Panel - Chat Section */}
-      <div className="flex-1 overflow-hidden overflow-x-hidden w-full max-w-full lg:w-auto">
+      <div className="flex-1 overflow-hidden overflow-x-hidden w-full max-w-full lg:w-1/3 lg:px-2">
         <ChatSection
           onMessagesChange={setHasMessages}
           showProfile={showProfile}
