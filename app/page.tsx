@@ -43,7 +43,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="flex flex-col lg:flex-row h-screen overflow-hidden overflow-x-hidden bg-background relative fixed inset-0 lg:static w-full max-w-full">
+    <div className="flex flex-col lg:flex-row h-screen overflow-hidden overflow-x-hidden bg-background w-full max-w-full">
       {/* Language selector — desktop: always visible; mobile: visible when no chat overlay */}
       <div className={`${showChat ? 'hidden lg:block' : ''}`}>
         <LanguageSelector />
