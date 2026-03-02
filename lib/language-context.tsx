@@ -14,7 +14,7 @@ const translations: Record<Language, Record<string, string>> = {
   en: {
     // Profile Section
     'profile.name': 'Li Zheng',
-    'profile.title': 'Data Science | Real Estate | AI',
+    'profile.title': 'Data Science | Product | AI',
     'profile.experience': 'Experience',
     'profile.education': 'Education',
     'profile.projects': 'Projects',
@@ -90,7 +90,7 @@ const translations: Record<Language, Record<string, string>> = {
   zh: {
     // Profile Section
     'profile.name': '郑理',
-    'profile.title': '数据科学 | 房地产 | 人工智能',
+    'profile.title': '数据科学 | 产品 | 人工智能',
     'profile.experience': '工作经历',
     'profile.education': '教育背景',
     'profile.projects': '个人项目',
