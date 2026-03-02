@@ -73,6 +73,11 @@ const translations: Record<Language, Record<string, string>> = {
     'edu.osu.school': 'The Ohio State University',
     'edu.osu.date': '2012 - 2016',
 
+    // Activity
+    'profile.activity': 'Activity',
+    'activity.pilot.title': 'Private Pilot License (PPL)',
+    'activity.pilot.org': 'FAA • #3877290',
+
     // Projects
     'proj.flat': 'Close with Flat',
     'proj.flat.desc': 'Modern home buying experience with reduced cost through flat-fee transaction services',
@@ -172,6 +177,11 @@ const translations: Record<Language, Record<string, string>> = {
     'edu.osu.degree': '会计与管理信息系统学士',
     'edu.osu.school': '俄亥俄州立大学',
     'edu.osu.date': '2012 - 2016',
+
+    // Activity
+    'profile.activity': '兴趣活动',
+    'activity.pilot.title': '私人飞行员执照（PPL）',
+    'activity.pilot.org': 'FAA • #3877290',
 
     // Projects
     'proj.flat': 'Close with Flat',
