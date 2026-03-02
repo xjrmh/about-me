@@ -4,6 +4,68 @@ import Image from 'next/image';
 import { useLanguage } from '@/lib/language-context';
 import { useEffect, useState, useRef, useCallback } from 'react';
 
+function ExperienceItem({ prefix, t }: { prefix: string; t: (key: string) => string }) {
+  const titleKey = prefix === 'exp.cofounder' ? prefix : `${prefix}.title`;
+  const companyKey = `${prefix}.company`;
+  const dateKey = `${prefix}.date`;
+  const descKey = `${prefix}.desc`;
+
+  // Collect bullets
+  const bullets: string[] = [];
+  for (let i = 1; i <= 10; i++) {
+    const key = `${prefix}.bullet${i}`;
+    const val = t(key);
+    if (val === key) break;
+    bullets.push(val);
+  }
+
+  // Collect links
+  const links: { text: string; url: string }[] = [];
+  for (let i = 1; i <= 5; i++) {
+    const textKey = `${prefix}.link${i}.text`;
+    const urlKey = `${prefix}.link${i}.url`;
+    const text = t(textKey);
+    const url = t(urlKey);
+    if (text === textKey) break;
+    links.push({ text, url });
+  }
+
+  return (
+    <div className="space-y-1">
+      <h3 className="text-sm font-medium text-foreground">{t(titleKey)}</h3>
+      <p className="text-xs text-muted-foreground/70">{t(companyKey)} • {t(dateKey)}</p>
+      <p className="text-xs text-muted-foreground/60 leading-relaxed pt-0.5 sm:pt-1">
+        {t(descKey)}
+        {links.length > 0 && (
+          <>
+            {' '}
+            {links.map((link, i) => (
+              <span key={i}>
+                {i > 0 && ' • '}
+                <a
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline underline-offset-2 text-muted-foreground/70 hover:text-foreground transition-colors"
+                >
+                  {link.text}
+                </a>
+              </span>
+            ))}
+          </>
+        )}
+      </p>
+      {bullets.length > 0 && (
+        <ul className="text-xs text-muted-foreground/55 leading-relaxed space-y-0.5 pt-0.5 pl-3.5 list-disc marker:text-muted-foreground/30">
+          {bullets.map((bullet, i) => (
+            <li key={i}>{bullet}</li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
 export function ProfileSection({ showStickyHeader = true }: { showStickyHeader?: boolean } = {}) {
   const { t, language } = useLanguage();
   const [lastUpdatedTimestamp, setLastUpdatedTimestamp] = useState<string>('');
@@ -226,34 +288,11 @@ export function ProfileSection({ showStickyHeader = true }: { showStickyHeader?:
         <div className="space-y-2.5 sm:space-y-3 lg:space-y-4">
           <h2 className="text-sm font-bold text-foreground/90 uppercase tracking-wide">{t('profile.experience')}</h2>
           <div className="space-y-3 sm:space-y-4 lg:space-y-5">
-            <div className="space-y-1">
-              <h3 className="text-sm font-medium text-foreground">{t('exp.meta.title')}</h3>
-              <p className="text-xs text-muted-foreground/70">{t('exp.meta.company')} • {t('exp.meta.date')}</p>
-              <p className="text-xs text-muted-foreground/60 leading-relaxed pt-0.5 sm:pt-1">
-                {t('exp.meta.desc')}
-              </p>
-            </div>
-            <div className="space-y-1">
-              <h3 className="text-sm font-medium text-foreground">{t('exp.cofounder')}</h3>
-              <p className="text-xs text-muted-foreground/70">{t('exp.cofounder.company')} • {t('exp.cofounder.date')}</p>
-              <p className="text-xs text-muted-foreground/60 leading-relaxed pt-0.5 sm:pt-1">
-                {t('exp.cofounder.desc')}
-              </p>
-            </div>
-            <div className="space-y-1">
-              <h3 className="text-sm font-medium text-foreground">{t('exp.pwc.title')}</h3>
-              <p className="text-xs text-muted-foreground/70">{t('exp.pwc.company')} • {t('exp.pwc.date')}</p>
-              <p className="text-xs text-muted-foreground/60 leading-relaxed pt-0.5 sm:pt-1">
-                {t('exp.pwc.desc')}
-              </p>
-            </div>
-            <div className="space-y-1">
-              <h3 className="text-sm font-medium text-foreground">{t('exp.her.title')}</h3>
-              <p className="text-xs text-muted-foreground/70">{t('exp.her.company')} • {t('exp.her.date')}</p>
-              <p className="text-xs text-muted-foreground/60 leading-relaxed pt-0.5 sm:pt-1">
-                {t('exp.her.desc')}
-              </p>
-            </div>
+            <ExperienceItem prefix="exp.meta" t={t} />
+            <ExperienceItem prefix="exp.cofounder" t={t} />
+            <ExperienceItem prefix="exp.pwc" t={t} />
+            <ExperienceItem prefix="exp.duke" t={t} />
+            <ExperienceItem prefix="exp.her" t={t} />
           </div>
         </div>
 
