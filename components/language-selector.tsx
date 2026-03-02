@@ -6,7 +6,7 @@ export function LanguageSelector() {
   const { language, setLanguage } = useLanguage();
 
   return (
-    <div className="fixed top-3 left-1.5 lg:left-2 z-50">
+    <div className="fixed top-3 right-2 lg:right-auto lg:left-2 z-50">
       <div className="flex items-center text-sm text-muted-foreground/70 px-2 py-1">
         <button
           onClick={() => setLanguage('en')}

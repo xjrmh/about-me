@@ -45,7 +45,7 @@ export default function Home() {
   return (
     <div className="flex flex-col lg:flex-row h-screen overflow-hidden overflow-x-hidden bg-background relative fixed inset-0 lg:static w-full max-w-full">
       {/* Language selector — desktop: always visible; mobile: visible when no chat overlay */}
-      <div className={`${hasMessages ? 'hidden lg:block' : ''} ${showChat ? 'hidden lg:block' : ''}`}>
+      <div className={`${showChat ? 'hidden lg:block' : ''}`}>
         <LanguageSelector />
       </div>
 
@@ -133,12 +133,6 @@ export default function Home() {
           ) : (
             <ProjectsSection />
           )}
-        </div>
-
-        {/* Swipe hint dots */}
-        <div className="flex justify-center gap-1.5 py-2 border-t border-border/40">
-          <div className={`w-1.5 h-1.5 rounded-full transition-colors ${activeTab === 'experience' ? 'bg-foreground' : 'bg-muted-foreground/30'}`} />
-          <div className={`w-1.5 h-1.5 rounded-full transition-colors ${activeTab === 'projects' ? 'bg-foreground' : 'bg-muted-foreground/30'}`} />
         </div>
 
         {/* Chat FAB */}
