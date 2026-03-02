@@ -24,7 +24,7 @@ const translations: Record<Language, Record<string, string>> = {
     'tab.projects': 'Projects',
 
     // Experience
-    'exp.meta.title': 'Data Scientist, Tech Lead',
+    'exp.meta.title': 'Staff Data Scientist, Tech Lead',
     'exp.meta.company': 'Meta (Instagram / Messenger)',
     'exp.meta.date': 'Sep 2021 - Jan 2026',
     'exp.meta.desc': 'Led IG Search × MetaAI integration by enabling LLM-based query understanding and personalized ranking; drove the global launch of E2EE on Messenger.',
@@ -94,6 +94,7 @@ const translations: Record<Language, Record<string, string>> = {
     'proj.lastFetched': 'Last fetched:',
     'proj.experimentdesigner': 'Experiment Designer',
     'proj.experimentdesigner.desc': 'Tool for designing and running statistical experiments',
+    'proj.experimentdesigner.skill': 'Also available as a Claude Code skill',
     'proj.northstar': 'NorthStar',
     'proj.northstar.desc': 'All-in-one solution for metric creation, management, and reporting with native AI integration',
 
@@ -203,6 +204,7 @@ const translations: Record<Language, Record<string, string>> = {
     'proj.lastFetched': '最后获取：',
     'proj.experimentdesigner': '实验设计工具',
     'proj.experimentdesigner.desc': '用于设计和运行统计实验的工具',
+    'proj.experimentdesigner.skill': '同时提供 Claude Code 技能',
     'proj.northstar': 'NorthStar',
     'proj.northstar.desc': '集指标创建、管理与报表于一体，并原生集成 AI 的平台',
 

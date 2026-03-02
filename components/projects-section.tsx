@@ -27,6 +27,16 @@ export function ProjectsSection() {
                 </svg>
               </a>
               <p className="text-xs text-muted-foreground/60 leading-relaxed">
+                <a
+                  href="https://github.com/xjrmh/experiment-designer-skill"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-foreground/70 hover:text-foreground/50 transition-colors underline underline-offset-2"
+                >
+                  {t('proj.experimentdesigner.skill')}
+                </a>
+              </p>
+              <p className="text-xs text-muted-foreground/60 leading-relaxed">
                 {t('proj.experimentdesigner.desc')}
               </p>
               <a href="https://experimentdesigner.xjrmh.com" target="_blank" rel="noopener noreferrer" className="relative block w-full aspect-video rounded-md overflow-hidden border border-border/40 mt-1.5 hover:opacity-80 transition-opacity">
