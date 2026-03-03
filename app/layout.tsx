@@ -13,16 +13,26 @@ export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: 'Li Zheng - Data Science | Product | AI',
   description:
-    'Personal website and AI chatbot for Li Zheng. Explore my work in data science, real estate innovation, and AI. Chat with me to learn about my professional experience, skills, and projects.',
+    'Li Zheng (xjrmh) — Data Scientist, Co-Founder, and AI enthusiast. Explore my portfolio in data science, machine learning, real estate innovation, and AI. Former Lead Data Scientist at Meta. Chat with my AI to learn more.',
   keywords: [
     'Li Zheng',
-    'Senior Data Scientist',
+    'xjrmh',
+    'Data Scientist',
+    'Lead Data Scientist',
     'Data Science',
     'Machine Learning',
     'AI',
+    'Meta',
+    'Duke University',
     'Portfolio',
+    'Product',
+    'Real Estate',
   ],
   authors: [{ name: 'Li Zheng' }],
+  creator: 'Li Zheng',
+  alternates: {
+    canonical: '/',
+  },
   icons: {
     icon: [
       { url: '/profile.jpg', sizes: '32x32', type: 'image/jpeg' },
@@ -32,12 +42,58 @@ export const metadata: Metadata = {
     shortcut: '/profile.jpg',
   },
   openGraph: {
-    title: 'Li Zheng - Data Science | Product | AI',
+    title: 'Li Zheng (xjrmh) - Data Science | Product | AI',
     description:
-      'Explore my work in data science, real estate innovation, and AI. Chat with me to learn about my professional experience, skills, and projects.',
+      'Li Zheng (xjrmh) — Data Scientist, Co-Founder, and AI enthusiast. Portfolio featuring data science, machine learning, and AI projects. Former Lead Data Scientist at Meta.',
     type: 'website',
+    url: '/',
+    siteName: 'Li Zheng — xjrmh.com',
+    locale: 'en_US',
+    images: [
+      {
+        url: '/profile.jpg',
+        width: 800,
+        height: 800,
+        alt: 'Li Zheng - Data Scientist and AI Enthusiast',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Li Zheng (xjrmh) - Data Science | Product | AI',
+    description:
+      'Li Zheng (xjrmh) — Data Scientist, Co-Founder, and AI enthusiast. Explore my portfolio and chat with my AI.',
     images: ['/profile.jpg'],
   },
+};
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Li Zheng',
+  alternateName: 'xjrmh',
+  url: baseUrl,
+  image: `${baseUrl}/profile.jpg`,
+  jobTitle: 'Co-Founder',
+  worksFor: {
+    '@type': 'Organization',
+    name: 'Flat Strategy',
+  },
+  alumniOf: [
+    {
+      '@type': 'CollegeOrUniversity',
+      name: 'Duke University',
+    },
+    {
+      '@type': 'CollegeOrUniversity',
+      name: 'Ohio State University',
+    },
+  ],
+  sameAs: [
+    'https://www.linkedin.com/in/li-zheng/',
+    'https://github.com/xjrmh',
+  ],
+  knowsAbout: ['Data Science', 'Machine Learning', 'AI', 'Product Management', 'Real Estate Technology'],
 };
 
 export default function RootLayout({
@@ -49,6 +105,10 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
       </head>
       <body className={inter.className}>
         <LanguageProvider>{children}</LanguageProvider>
