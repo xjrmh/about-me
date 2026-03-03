@@ -93,10 +93,10 @@ const translations: Record<Language, Record<string, string>> = {
     'proj.timer.desc': 'Minimalist productivity timer for focused work sessions',
     'proj.lastFetched': 'Last fetched:',
     'proj.experimentdesigner': 'Experiment Designer',
-    'proj.experimentdesigner.desc': 'Tool for designing and running statistical experiments',
+    'proj.experimentdesigner.desc': 'Data science tool for designing and running statistical experiments',
     'proj.experimentdesigner.skill': 'Also available as a Claude Code skill',
     'proj.northstar': 'NorthStar',
-    'proj.northstar.desc': 'All-in-one solution for metric creation, management, and reporting with native AI integration',
+    'proj.northstar.desc': 'Metrics creation, management, and reporting platform with native AI integration evolved from Meta\'s internal toolkit: QE, Deltoid, and M360',
 
     // Chat Section
     'chat.header': 'Chat',
