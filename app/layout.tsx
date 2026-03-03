@@ -11,7 +11,7 @@ const baseUrl = process.env.SITE_URL ||
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
-  title: 'Li Zheng - Data Science | Real Estate | AI',
+  title: 'Li Zheng - Data Science | Product | AI',
   description:
     'Personal website and AI chatbot for Li Zheng. Explore my work in data science, real estate innovation, and AI. Chat with me to learn about my professional experience, skills, and projects.',
   keywords: [
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     shortcut: '/profile.jpg',
   },
   openGraph: {
-    title: 'Li Zheng - Data Science | Real Estate | AI',
+    title: 'Li Zheng - Data Science | Product | AI',
     description:
       'Explore my work in data science, real estate innovation, and AI. Chat with me to learn about my professional experience, skills, and projects.',
     type: 'website',
