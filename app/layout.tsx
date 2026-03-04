@@ -18,6 +18,7 @@ export const metadata: Metadata = {
     'Li Zheng',
     'xjrmh',
     'Data Scientist',
+    'Seniot Data Scientist',
     'Staff Data Scientist',
     'Data Science',
     'Machine Learning',
