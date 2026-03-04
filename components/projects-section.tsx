@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import { ExternalLink } from 'lucide-react';
 import { useLanguage } from '@/lib/language-context';
 
 export function ProjectsSection() {
@@ -20,11 +21,7 @@ export function ProjectsSection() {
                 className="text-sm font-medium text-foreground hover:text-foreground/70 transition-colors inline-flex items-center gap-1"
               >
                 {t('proj.experimentdesigner')}
-                <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                  <polyline points="15 3 21 3 21 9"/>
-                  <line x1="10" y1="14" x2="21" y2="3"/>
-                </svg>
+                <ExternalLink className="w-3 h-3" />
               </a>
               <p className="text-xs text-muted-foreground/60 leading-relaxed">
                 <a
@@ -44,6 +41,7 @@ export function ProjectsSection() {
                   src="/project_screenshots/experiment-designer.png"
                   alt="Experiment Designer screenshot"
                   fill
+                  sizes="(max-width: 672px) 100vw, 672px"
                   className="object-cover"
                 />
               </a>
@@ -56,11 +54,7 @@ export function ProjectsSection() {
                 className="text-sm font-medium text-foreground hover:text-foreground/70 transition-colors inline-flex items-center gap-1"
               >
                 {t('proj.northstar')}
-                <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                  <polyline points="15 3 21 3 21 9"/>
-                  <line x1="10" y1="14" x2="21" y2="3"/>
-                </svg>
+                <ExternalLink className="w-3 h-3" />
               </a>
               <p className="text-xs text-muted-foreground/60 leading-relaxed">
                 {t('proj.northstar.desc')}
@@ -70,6 +64,7 @@ export function ProjectsSection() {
                   src="/project_screenshots/northstar.png"
                   alt="NorthStar screenshot"
                   fill
+                  sizes="(max-width: 672px) 100vw, 672px"
                   className="object-cover"
                 />
               </a>
@@ -82,11 +77,7 @@ export function ProjectsSection() {
                 className="text-sm font-medium text-foreground hover:text-foreground/70 transition-colors inline-flex items-center gap-1"
               >
                 {t('proj.flat')}
-                <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                  <polyline points="15 3 21 3 21 9"/>
-                  <line x1="10" y1="14" x2="21" y2="3"/>
-                </svg>
+                <ExternalLink className="w-3 h-3" />
               </a>
               <p className="text-xs text-muted-foreground/60 leading-relaxed">
                 {t('proj.flat.desc')}
@@ -96,6 +87,7 @@ export function ProjectsSection() {
                   src="/project_screenshots/close-with-flat.png"
                   alt="Close with Flat screenshot"
                   fill
+                  sizes="(max-width: 672px) 100vw, 672px"
                   className="object-cover"
                 />
               </a>
@@ -108,11 +100,7 @@ export function ProjectsSection() {
                 className="text-sm font-medium text-foreground hover:text-foreground/70 transition-colors inline-flex items-center gap-1"
               >
                 {t('proj.aterminal')}
-                <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                  <polyline points="15 3 21 3 21 9"/>
-                  <line x1="10" y1="14" x2="21" y2="3"/>
-                </svg>
+                <ExternalLink className="w-3 h-3" />
               </a>
               <p className="text-xs text-muted-foreground/60 leading-relaxed">
                 {t('proj.aterminal.desc')}
@@ -122,6 +110,7 @@ export function ProjectsSection() {
                   src="/project_screenshots/alpha-terminal.png"
                   alt="Alpha Terminal screenshot"
                   fill
+                  sizes="(max-width: 672px) 100vw, 672px"
                   className="object-cover"
                 />
               </a>
@@ -134,11 +123,7 @@ export function ProjectsSection() {
                 className="text-sm font-medium text-foreground hover:text-foreground/70 transition-colors inline-flex items-center gap-1"
               >
                 {t('proj.gomoku')}
-                <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                  <polyline points="15 3 21 3 21 9"/>
-                  <line x1="10" y1="14" x2="21" y2="3"/>
-                </svg>
+                <ExternalLink className="w-3 h-3" />
               </a>
               <p className="text-xs text-muted-foreground/60 leading-relaxed">
                 {t('proj.gomoku.desc')}
@@ -152,11 +137,7 @@ export function ProjectsSection() {
                 className="text-sm font-medium text-foreground hover:text-foreground/70 transition-colors inline-flex items-center gap-1"
               >
                 {t('proj.timer')}
-                <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                  <polyline points="15 3 21 3 21 9"/>
-                  <line x1="10" y1="14" x2="21" y2="3"/>
-                </svg>
+                <ExternalLink className="w-3 h-3" />
               </a>
               <p className="text-xs text-muted-foreground/60 leading-relaxed">
                 {t('proj.timer.desc')}

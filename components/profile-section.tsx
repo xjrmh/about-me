@@ -249,6 +249,7 @@ export function ProfileSection({ showStickyHeader = true, experienceOnly = false
               src="/profile.jpg"
               alt="Li Zheng"
               fill
+              sizes="96px"
               className="object-cover pointer-events-none"
               priority
             />

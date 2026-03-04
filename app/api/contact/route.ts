@@ -1,5 +1,14 @@
 import { Resend } from 'resend';
 
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 /**
  * POST /api/contact
  * Handles contact form submissions and sends emails via Resend
@@ -43,10 +52,10 @@ export async function POST(req: Request) {
       text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
       html: `
         <h2>New Contact Form Submission</h2>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Name:</strong> ${escapeHtml(name)}</p>
+        <p><strong>Email:</strong> ${escapeHtml(email)}</p>
         <p><strong>Message:</strong></p>
-        <p>${message.replace(/\n/g, '<br>')}</p>
+        <p>${escapeHtml(message).replace(/\n/g, '<br>')}</p>
       `,
     });
 
@@ -70,7 +79,7 @@ export async function POST(req: Request) {
                   Thanks for reaching out!
                 </h1>
                 <p style="margin: 0 0 16px 0; font-size: 15px; line-height: 1.6; color: #374151;">
-                  Hi ${name},
+                  Hi ${escapeHtml(name)},
                 </p>
                 <p style="margin: 0 0 16px 0; font-size: 15px; line-height: 1.6; color: #374151;">
                   Thanks for your message! I appreciate you taking the time to reach out.

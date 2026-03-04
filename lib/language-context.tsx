@@ -206,7 +206,7 @@ const translations: Record<Language, Record<string, string>> = {
     'proj.experimentdesigner.desc': '用于设计和运行统计实验的工具',
     'proj.experimentdesigner.skill': '同时提供 Claude Code 技能',
     'proj.northstar': 'NorthStar',
-    'proj.northstar.desc': '集指标创建、管理与报表于一体，并原生集成 AI 的平台',
+    'proj.northstar.desc': '集指标创建、管理与报表于一体，并原生集成 AI 的平台，源自 Meta 内部工具：QE、Deltoid 和 M360',
 
     // Chat Section
     'chat.header': '对话',

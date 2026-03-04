@@ -1,7 +1,7 @@
 'use client';
 
 import { useChat } from 'ai/react';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -25,6 +25,12 @@ export function ChatSection({ onMessagesChange, showProfile, onToggleProfile, hi
 
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const setSuggestion = useCallback((value: string) => {
+    handleInputChange({ target: { value } } as React.ChangeEvent<HTMLInputElement>);
+    inputRef.current?.focus();
+  }, [handleInputChange]);
 
   // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
@@ -64,74 +70,20 @@ export function ChatSection({ onMessagesChange, showProfile, onToggleProfile, hi
                   {t('chat.welcome')}
                 </p>
                 <div className="flex flex-wrap gap-1.5 sm:gap-2 justify-center">
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      const inputElement = document.querySelector('input') as HTMLInputElement;
-                      if (inputElement) {
-                        const value = t('chat.q.technologies');
-                        const nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value')?.set;
-                        nativeInputValueSetter?.call(inputElement, value);
-                        const event = new Event('input', { bubbles: true });
-                        inputElement.dispatchEvent(event);
-                        inputElement.focus();
-                      }
-                    }}
-                    className="px-2.5 py-1 sm:px-3 sm:py-1.5 text-[11px] text-muted-foreground/70 hover:text-foreground border border-border/50 hover:border-border rounded-full transition-colors"
-                  >
-                    {t('chat.btn.technologies')}
-                  </button>
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      const inputElement = document.querySelector('input') as HTMLInputElement;
-                      if (inputElement) {
-                        const value = t('chat.q.projects');
-                        const nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value')?.set;
-                        nativeInputValueSetter?.call(inputElement, value);
-                        const event = new Event('input', { bubbles: true });
-                        inputElement.dispatchEvent(event);
-                        inputElement.focus();
-                      }
-                    }}
-                    className="px-2.5 py-1 sm:px-3 sm:py-1.5 text-[11px] text-muted-foreground/70 hover:text-foreground border border-border/50 hover:border-border rounded-full transition-colors"
-                  >
-                    {t('chat.btn.projects')}
-                  </button>
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      const inputElement = document.querySelector('input') as HTMLInputElement;
-                      if (inputElement) {
-                        const value = t('chat.q.whatsNext');
-                        const nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value')?.set;
-                        nativeInputValueSetter?.call(inputElement, value);
-                        const event = new Event('input', { bubbles: true });
-                        inputElement.dispatchEvent(event);
-                        inputElement.focus();
-                      }
-                    }}
-                    className="px-2.5 py-1 sm:px-3 sm:py-1.5 text-[11px] text-muted-foreground/70 hover:text-foreground border border-border/50 hover:border-border rounded-full transition-colors"
-                  >
-                    {t('chat.btn.whatsNext')}
-                  </button>
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      const inputElement = document.querySelector('input') as HTMLInputElement;
-                      if (inputElement) {
-                        const value = t('chat.q.collaborate');
-                        const nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value')?.set;
-                        nativeInputValueSetter?.call(inputElement, value);
-                        const event = new Event('input', { bubbles: true });
-                        inputElement.dispatchEvent(event);
-                        inputElement.focus();
-                      }
-                    }}
-                    className="px-2.5 py-1 sm:px-3 sm:py-1.5 text-[11px] text-muted-foreground/70 hover:text-foreground border border-border/50 hover:border-border rounded-full transition-colors"
-                  >
-                    {t('chat.btn.collaborate')}
-                  </button>
+                  {[
+                    { label: 'chat.btn.technologies', query: 'chat.q.technologies' },
+                    { label: 'chat.btn.projects', query: 'chat.q.projects' },
+                    { label: 'chat.btn.whatsNext', query: 'chat.q.whatsNext' },
+                    { label: 'chat.btn.collaborate', query: 'chat.q.collaborate' },
+                  ].map(({ label, query }) => (
+                    <button
+                      key={label}
+                      onClick={() => setSuggestion(t(query))}
+                      className="px-2.5 py-1 sm:px-3 sm:py-1.5 text-[11px] text-muted-foreground/70 hover:text-foreground border border-border/50 hover:border-border rounded-full transition-colors"
+                    >
+                      {t(label)}
+                    </button>
+                  ))}
                 </div>
               </div>
             </div>
@@ -168,6 +120,7 @@ export function ChatSection({ onMessagesChange, showProfile, onToggleProfile, hi
       <div className="border-t px-4 py-3 sm:px-6 sm:py-4 w-full max-w-full">
         <form onSubmit={handleSubmit} className="flex gap-2 max-w-2xl mx-auto w-full">
           <Input
+            ref={inputRef}
             value={input}
             onChange={handleInputChange}
             onKeyDown={(e) => {

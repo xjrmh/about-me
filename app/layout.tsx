@@ -86,7 +86,7 @@ const jsonLd = {
     },
     {
       '@type': 'CollegeOrUniversity',
-      name: 'Ohio State University',
+      name: 'The Ohio State University',
     },
   ],
   sameAs: [
