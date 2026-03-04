@@ -13,12 +13,12 @@ export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: 'Li Zheng - Data Science | Product | AI',
   description:
-    'Li Zheng (xjrmh) — Data Scientist, Co-Founder, and AI enthusiast. Explore my portfolio in data science, machine learning, real estate innovation, and AI. Former Lead Data Scientist at Meta. Chat with my AI to learn more.',
+    'Li Zheng (xjrmh) — Data Scientist, Co-Founder, and AI enthusiast. Explore my portfolio in data science, machine learning, real estate innovation, and AI. Former Staff Data Scientist at Meta. Chat with my AI to learn more.',
   keywords: [
     'Li Zheng',
     'xjrmh',
     'Data Scientist',
-    'Lead Data Scientist',
+    'Staff Data Scientist',
     'Data Science',
     'Machine Learning',
     'AI',
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Li Zheng (xjrmh) - Data Science | Product | AI',
     description:
-      'Li Zheng (xjrmh) — Data Scientist, Co-Founder, and AI enthusiast. Portfolio featuring data science, machine learning, and AI projects. Former Lead Data Scientist at Meta.',
+      'Li Zheng (xjrmh) — Data Scientist, Co-Founder, and AI enthusiast. Portfolio featuring data science, machine learning, and AI projects. Former Staff Data Scientist at Meta.',
     type: 'website',
     url: '/',
     siteName: 'Li Zheng — xjrmh.com',
