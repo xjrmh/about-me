@@ -35,7 +35,7 @@ const translations: Record<Language, Record<string, string>> = {
     'exp.meta.bullet5': 'Designed customized A/B test frameworks for cluster/network experiments, later became standard practice across Org',
     'exp.meta.bullet6': 'Set team roadmaps by identifying user frictions, sizing/prioritizing opportunities, and estimating timeline; supported DS and engineering hiring',
     'exp.meta.link1.text': 'IG Search × MetaAI',
-    'exp.meta.link1.url': 'https://about.instagram.com/blog/announcements/instagram-meta-ai',
+    'exp.meta.link1.url': 'https://help.instagram.com/321958406152282/?helpref=uf_share',
     'exp.meta.link2.text': 'E2EE',
     'exp.meta.link2.url': 'https://about.fb.com/news/2023/12/default-end-to-end-encryption-on-messenger/',
 
@@ -145,7 +145,7 @@ const translations: Record<Language, Record<string, string>> = {
     'exp.meta.bullet5': '设计定制化A/B测试框架用于集群/网络实验，后成为全组织标准实践',
     'exp.meta.bullet6': '通过识别用户痛点、量化机会优先级和估算时间线制定团队路线图；支持数据科学和工程团队招聘',
     'exp.meta.link1.text': 'IG搜索 × MetaAI',
-    'exp.meta.link1.url': 'https://about.instagram.com/blog/announcements/instagram-meta-ai',
+    'exp.meta.link1.url': 'https://help.instagram.com/321958406152282/?helpref=uf_share',
     'exp.meta.link2.text': '端到端加密',
     'exp.meta.link2.url': 'https://about.fb.com/news/2023/12/default-end-to-end-encryption-on-messenger/',
 
