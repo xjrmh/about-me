@@ -320,6 +320,10 @@ export function ProfileSection({ showStickyHeader = true, experienceOnly = false
 
         {/* Experience Section */}
         <div className="space-y-2.5 sm:space-y-3 lg:space-y-4">
+          <h2 className="text-sm font-bold text-foreground/90 uppercase tracking-wide">{t('profile.summaryTitle')}</h2>
+          <p className="text-xs text-muted-foreground/70 leading-relaxed">
+            {t('profile.summary')}
+          </p>
           <h2 className="text-sm font-bold text-foreground/90 uppercase tracking-wide">{t('profile.experience')}</h2>
           <div className="space-y-3 sm:space-y-4 lg:space-y-5">
             <ExperienceItem prefix="exp.meta" t={t} />
