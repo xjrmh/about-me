@@ -246,7 +246,7 @@ export function ProfileSection({ showStickyHeader = true, experienceOnly = false
             onContextMenu={(e) => e.preventDefault()}
           >
             <Image
-              src="/profile.jpg"
+              src="/profile2.png"
               alt="Li Zheng"
               fill
               sizes="96px"

@@ -56,7 +56,7 @@ export function HomeClient() {
           <div className="flex items-center gap-3">
             <div className="relative w-12 h-12 rounded-full overflow-hidden flex-shrink-0">
               <Image
-                src="/profile.jpg"
+                src="/profile2.png"
                 alt="Li Zheng"
                 fill
                 className="object-cover"

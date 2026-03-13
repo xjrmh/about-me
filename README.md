@@ -98,7 +98,7 @@ vercel
 
 Edit [components/profile-section.tsx](components/profile-section.tsx):
 - Change name, title, and social links
-- Update profile photo by replacing `public/profile.jpg`
+- Update profile photo by replacing `public/profile2.png`
 - Add or remove social links (LinkedIn, GitHub, Resume PDF, Email)
 
 ### Modify Chatbot Persona

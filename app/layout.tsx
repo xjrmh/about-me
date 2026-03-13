@@ -36,11 +36,11 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: '/profile.jpg', sizes: '32x32', type: 'image/jpeg' },
-      { url: '/profile.jpg', sizes: '16x16', type: 'image/jpeg' },
+      { url: '/favicon-profile2-32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon-profile2-16.png', sizes: '16x16', type: 'image/png' },
     ],
-    apple: { url: '/profile.jpg', sizes: '180x180', type: 'image/jpeg' },
-    shortcut: '/profile.jpg',
+    apple: { url: '/apple-touch-icon-profile2.png', sizes: '180x180', type: 'image/png' },
+    shortcut: '/favicon-profile2-32.png',
   },
   openGraph: {
     title: 'Li Zheng (xjrmh) - Data Science | Product | AI',
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     locale: 'en_US',
     images: [
       {
-        url: '/profile.jpg',
+        url: '/profile2.png',
         width: 800,
         height: 800,
         alt: 'Li Zheng - Data Scientist and AI Enthusiast',
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
     title: 'Li Zheng (xjrmh) - Data Science | Product | AI',
     description:
       'Li Zheng (xjrmh) — Data Scientist, Co-Founder, and AI enthusiast. Explore my portfolio and chat with my AI.',
-    images: ['/profile.jpg'],
+    images: ['/profile2.png'],
   },
 };
 
@@ -74,7 +74,7 @@ const jsonLd = {
   name: 'Li Zheng',
   alternateName: 'xjrmh',
   url: baseUrl,
-  image: `${baseUrl}/profile.jpg`,
+  image: `${baseUrl}/profile2.png`,
   jobTitle: 'Co-Founder',
   worksFor: {
     '@type': 'Organization',
