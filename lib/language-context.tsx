@@ -26,7 +26,7 @@ const translations: Record<Language, Record<string, string>> = {
     'tab.projects': 'Projects',
 
     // Experience
-    'exp.meta.title': 'Lead Data Scientist, Tech Lead',
+    'exp.meta.title': 'Staff Data Scientist, Tech Lead',
     'exp.meta.company': 'Meta (Instagram / Messenger)',
     'exp.meta.date': 'Sep 2021 - Jan 2026',
     'exp.meta.desc': 'Led IG Search × MetaAI integration by enabling LLM-based query understanding and personalized ranking; drove the global launch of E2EE on Messenger.',
