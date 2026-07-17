@@ -218,6 +218,7 @@ export const profileData = {
           url: 'https://about.fb.com/news/2023/12/default-end-to-end-encryption-on-messenger/',
         },
       ],
+      logo: '/logos/meta.svg',
     },
     {
       id: 'pwc',
