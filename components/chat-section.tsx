@@ -1,85 +1,80 @@
 'use client';
 
 import { useChat } from 'ai/react';
-import { useEffect, useRef, useCallback } from 'react';
+import { useCallback, useEffect, useId, useRef } from 'react';
+import { Loader2, Send } from 'lucide-react';
+import { ChatMessage } from '@/components/chat-message';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { ChatMessage } from '@/components/chat-message';
-import { Send, Loader2, User } from 'lucide-react';
 import { useLanguage } from '@/lib/language-context';
 
 interface ChatSectionProps {
-  onMessagesChange: (hasMessages: boolean) => void;
-  showProfile: boolean;
-  onToggleProfile: () => void;
-  hideHeader?: boolean;
+  onMessagesChange?: (hasMessages: boolean) => void;
 }
 
-export function ChatSection({ onMessagesChange, showProfile, onToggleProfile, hideHeader = false }: ChatSectionProps) {
-  const { t } = useLanguage();
+const suggestions = [
+  ['chat.suggestion.flatre', 'chat.query.flatre'],
+  ['chat.suggestion.aiSearch', 'chat.query.aiSearch'],
+  ['chat.suggestion.experimentation', 'chat.query.experimentation'],
+  ['chat.suggestion.collaborate', 'chat.query.collaborate'],
+] as const;
+
+export function ChatSection({ onMessagesChange }: ChatSectionProps) {
+  const { language, t } = useLanguage();
+  const inputId = useId();
   const { messages, input, handleInputChange, handleSubmit, isLoading, error } =
     useChat({
       api: '/api/chat',
+      body: { language },
     });
 
-  const scrollAreaRef = useRef<HTMLDivElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const setSuggestion = useCallback((value: string) => {
-    handleInputChange({ target: { value } } as React.ChangeEvent<HTMLInputElement>);
-    inputRef.current?.focus();
-  }, [handleInputChange]);
+  const setSuggestion = useCallback(
+    (value: string) => {
+      handleInputChange({ target: { value } } as React.ChangeEvent<HTMLInputElement>);
+      inputRef.current?.focus();
+    },
+    [handleInputChange],
+  );
 
-  // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
+  }, [messages, isLoading]);
 
-  // Notify parent when messages change
   useEffect(() => {
-    onMessagesChange(messages.length > 0);
+    onMessagesChange?.(messages.length > 0);
   }, [messages.length, onMessagesChange]);
 
   return (
-    <div className="flex flex-col h-full w-full max-w-full overflow-x-hidden">
-      {/* Header with profile toggle (mobile only, shown when messages exist) */}
-      {messages.length > 0 && !hideHeader && (
-        <div className="lg:hidden border-b border-border/40 px-4 py-3 flex items-center justify-between">
-          <h2 className="text-sm font-medium">{t('chat.header')}</h2>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={onToggleProfile}
-            className="h-8 w-8 p-0"
-            aria-label="Toggle profile"
-          >
-            <User className="w-4 h-4" />
-          </Button>
-        </div>
-      )}
-
-      {/* Messages area */}
-      <ScrollArea className={`flex-1 ${messages.length === 0 ? 'px-4 py-3 sm:px-6 sm:py-4' : 'px-4 py-6 sm:px-6 sm:py-8'} overflow-x-hidden`} ref={scrollAreaRef}>
-        <div className="space-y-4 sm:space-y-6 max-w-2xl mx-auto w-full">
+    <div className="flex h-full w-full flex-col overflow-hidden">
+      <ScrollArea
+        className={`flex-1 overflow-x-hidden ${
+          messages.length === 0 ? 'px-4 py-5' : 'px-4 py-6'
+        } sm:px-6`}
+      >
+        <div
+          className="mx-auto w-full max-w-2xl space-y-5"
+          role="log"
+          aria-live="polite"
+          aria-relevant="additions text"
+          aria-label={t('chat.header')}
+        >
           {messages.length === 0 ? (
-            <div className="flex items-center justify-center h-full min-h-[80px] sm:min-h-[100px] lg:min-h-[200px]">
-              <div className="text-center space-y-2.5 sm:space-y-3 lg:space-y-6 max-w-md px-4">
-                <p className="text-sm text-muted-foreground/70">
+            <div className="flex min-h-[180px] items-center justify-center lg:min-h-[260px]">
+              <div className="max-w-md space-y-5 text-center">
+                <p className="text-sm leading-relaxed text-muted-foreground">
                   {t('chat.welcome')}
                 </p>
-                <div className="flex flex-wrap gap-1.5 sm:gap-2 justify-center">
-                  {[
-                    { label: 'chat.btn.technologies', query: 'chat.q.technologies' },
-                    { label: 'chat.btn.projects', query: 'chat.q.projects' },
-                    { label: 'chat.btn.whatsNext', query: 'chat.q.whatsNext' },
-                    { label: 'chat.btn.collaborate', query: 'chat.q.collaborate' },
-                  ].map(({ label, query }) => (
+                <div className="flex flex-wrap justify-center gap-2">
+                  {suggestions.map(([label, query]) => (
                     <button
                       key={label}
+                      type="button"
                       onClick={() => setSuggestion(t(query))}
-                      className="px-2.5 py-1 sm:px-3 sm:py-1.5 text-[11px] text-muted-foreground/70 hover:text-foreground border border-border/50 hover:border-border rounded-full transition-colors"
+                      className="min-h-11 rounded-full border border-border px-3 text-xs font-medium text-foreground/75 transition-colors hover:border-foreground/30 hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 lg:min-h-9"
                     >
                       {t(label)}
                     </button>
@@ -97,52 +92,53 @@ export function ChatSection({ onMessagesChange, showProfile, onToggleProfile, hi
             ))
           )}
 
-          {/* Loading indicator */}
-          {isLoading && messages.length > 0 && (
-            <div className="flex items-center gap-2 text-muted-foreground/50 text-sm">
-              <Loader2 className="w-3 h-3 animate-spin" />
+          {isLoading ? (
+            <div
+              className="flex items-center gap-2 text-sm text-muted-foreground"
+              role="status"
+              aria-live="polite"
+            >
+              <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
+              <span>{t('chat.loading')}</span>
             </div>
-          )}
+          ) : null}
 
-          {/* Error message */}
-          {error && (
-            <div className="text-destructive/80 text-sm">
-              {error.message}
-            </div>
-          )}
+          {error ? (
+            <p className="text-sm text-destructive" role="alert">
+              {t('chat.error')}
+            </p>
+          ) : null}
 
-          {/* Scroll anchor */}
           <div ref={messagesEndRef} />
         </div>
       </ScrollArea>
 
-      {/* Input area */}
-      <div className="border-t px-4 py-3 sm:px-6 sm:py-4 w-full max-w-full">
-        <form onSubmit={handleSubmit} className="flex gap-2 max-w-2xl mx-auto w-full">
+      <div className="border-t border-border/70 px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 sm:px-6 sm:py-4">
+        <form onSubmit={handleSubmit} className="mx-auto flex w-full max-w-2xl gap-2">
+          <label htmlFor={inputId} className="sr-only">
+            {t('chat.inputLabel')}
+          </label>
           <Input
+            id={inputId}
             ref={inputRef}
             value={input}
             onChange={handleInputChange}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' && !e.shiftKey) {
-                e.preventDefault();
-                handleSubmit(e as any);
-              }
-            }}
             placeholder={t('chat.placeholder')}
             disabled={isLoading}
-            className="flex-1 border-0 bg-muted/30 focus-visible:ring-0 focus-visible:bg-muted/50 transition-colors text-base sm:text-sm"
+            autoComplete="off"
+            className="h-11 flex-1 bg-muted/30 text-base transition-colors focus-visible:bg-background sm:text-sm"
           />
           <Button
             type="submit"
             disabled={isLoading || !input.trim()}
             size="icon"
-            className="shrink-0"
+            className="h-11 w-11 shrink-0"
+            aria-label={t('chat.send')}
           >
             {isLoading ? (
-              <Loader2 className="w-4 h-4 animate-spin" />
+              <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
             ) : (
-              <Send className="w-4 h-4" />
+              <Send className="h-4 w-4" aria-hidden="true" />
             )}
           </Button>
         </form>

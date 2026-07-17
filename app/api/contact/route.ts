@@ -1,7 +1,9 @@
 import { Resend } from 'resend';
 
-function escapeHtml(str: string): string {
-  return str
+const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function escapeHtml(value: string): string {
+  return value
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
@@ -9,49 +11,53 @@ function escapeHtml(str: string): string {
     .replace(/'/g, '&#39;');
 }
 
-/**
- * POST /api/contact
- * Handles contact form submissions and sends emails via Resend
- */
 export async function POST(req: Request) {
   try {
-    const { name, email, message } = await req.json();
+    const body = (await req.json()) as Record<string, unknown>;
+    const name = typeof body.name === 'string' ? body.name.trim() : '';
+    const email = typeof body.email === 'string' ? body.email.trim() : '';
+    const message = typeof body.message === 'string' ? body.message.trim() : '';
 
-    // Validate inputs
     if (!name || !email || !message) {
-      return new Response('Missing required fields', { status: 400 });
+      return Response.json(
+        { error: 'Name, email, and message are required.' },
+        { status: 400 },
+      );
     }
 
-    // Check for Resend API key
+    if (
+      name.length > 120 ||
+      email.length > 254 ||
+      message.length > 5000 ||
+      !emailPattern.test(email)
+    ) {
+      return Response.json(
+        { error: 'One or more fields are invalid.' },
+        { status: 400 },
+      );
+    }
+
     const resendApiKey = process.env.RESEND_API_KEY;
     if (!resendApiKey) {
-      console.error('RESEND_API_KEY is not set');
-      // Log to console but don't fail - still return success to user
-      console.log('Contact form submission (email not sent):', {
-        name,
-        email,
-        message,
-        timestamp: new Date().toISOString(),
-      });
-
-      return new Response(JSON.stringify({ success: true }), {
-        status: 200,
-        headers: { 'Content-Type': 'application/json' },
-      });
+      return Response.json(
+        { error: 'Message delivery is temporarily unavailable.' },
+        { status: 503 },
+      );
     }
 
-    // Initialize Resend
     const resend = new Resend(resendApiKey);
+    const from = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
+    const contactEmail = process.env.CONTACT_EMAIL || 'li_zheng@outlook.com';
+    const safeName = name.replace(/[\r\n]+/g, ' ');
 
-    // Send notification email to site owner
-    await resend.emails.send({
-      from: process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev',
-      to: process.env.CONTACT_EMAIL || 'li_zheng@outlook.com',
+    const ownerDelivery = await resend.emails.send({
+      from,
+      to: contactEmail,
       replyTo: email,
-      subject: `New Contact from ${name}`,
+      subject: `New contact from ${safeName}`,
       text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
       html: `
-        <h2>New Contact Form Submission</h2>
+        <h2>New contact form submission</h2>
         <p><strong>Name:</strong> ${escapeHtml(name)}</p>
         <p><strong>Email:</strong> ${escapeHtml(email)}</p>
         <p><strong>Message:</strong></p>
@@ -59,62 +65,38 @@ export async function POST(req: Request) {
       `,
     });
 
-    // Send confirmation email to user
-    await resend.emails.send({
-      from: process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev',
+    if (ownerDelivery.error) {
+      throw new Error('OwnerDeliveryFailed');
+    }
+
+    const confirmationDelivery = await resend.emails.send({
+      from,
       to: email,
-      subject: "Thanks for reaching out!",
-      text: `Hi ${name},\n\nThanks for your message! I appreciate you taking the time to reach out.\n\nI'll review your message and get back to you soon.\n\nBest regards,\nLi Zheng`,
+      subject: 'Thanks for reaching out',
+      text: `Hi ${name},\n\nThanks for your message. I’ll review it and get back to you soon.\n\nBest,\nLi Zheng`,
       html: `
-        <!DOCTYPE html>
-        <html>
-          <head>
-            <meta charset="utf-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          </head>
-          <body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif; background-color: #f9fafb;">
-            <div style="max-width: 600px; margin: 0 auto; padding: 40px 20px;">
-              <div style="background: white; border-radius: 12px; padding: 32px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);">
-                <h1 style="margin: 0 0 24px 0; font-size: 24px; font-weight: 600; color: #111827;">
-                  Thanks for reaching out!
-                </h1>
-                <p style="margin: 0 0 16px 0; font-size: 15px; line-height: 1.6; color: #374151;">
-                  Hi ${escapeHtml(name)},
-                </p>
-                <p style="margin: 0 0 16px 0; font-size: 15px; line-height: 1.6; color: #374151;">
-                  Thanks for your message! I appreciate you taking the time to reach out.
-                </p>
-                <p style="margin: 0 0 24px 0; font-size: 15px; line-height: 1.6; color: #374151;">
-                  I'll review your message and get back to you soon.
-                </p>
-                <div style="padding-top: 24px; border-top: 1px solid #e5e7eb;">
-                  <p style="margin: 0 0 4px 0; font-size: 15px; font-weight: 500; color: #111827;">
-                    Best regards,
-                  </p>
-                  <p style="margin: 0; font-size: 15px; color: #6b7280;">
-                    Li Zheng
-                  </p>
-                </div>
-              </div>
-              <div style="margin-top: 24px; text-align: center;">
-                <p style="margin: 0; font-size: 13px; color: #9ca3af;">
-                  This is an automated confirmation that we received your message.
-                </p>
-              </div>
-            </div>
-          </body>
-        </html>
+        <div style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;line-height:1.6;color:#111827">
+          <h1 style="font-size:24px">Thanks for reaching out</h1>
+          <p>Hi ${escapeHtml(name)},</p>
+          <p>Thanks for your message. I’ll review it and get back to you soon.</p>
+          <p>Best,<br>Li Zheng</p>
+        </div>
       `,
     });
 
-    console.log('Emails sent successfully via Resend');
+    if (confirmationDelivery.error) {
+      throw new Error('ConfirmationDeliveryFailed');
+    }
 
-    return new Response(JSON.stringify({ success: true }), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return Response.json({ success: true });
   } catch (error) {
-    console.error('Error processing contact form:', error);
-    return new Response('Failed to send message', { status: 500 });
+    console.error(
+      'Contact delivery failed',
+      error instanceof Error ? error.name : 'UnknownError',
+    );
+    return Response.json(
+      { error: 'Failed to send the message.' },
+      { status: 502 },
+    );
   }
 }

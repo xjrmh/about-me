@@ -1,12 +1,15 @@
 'use client';
 
-import { useState } from 'react';
+import { useId, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useLanguage } from '@/lib/language-context';
 
+const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 export function ContactForm() {
   const { t } = useLanguage();
+  const id = useId();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -14,35 +17,50 @@ export function ContactForm() {
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Contact form submitted with data:', formData);
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    setError('');
+
+    const normalized = {
+      name: formData.name.trim(),
+      email: formData.email.trim(),
+      message: formData.message.trim(),
+    };
+
+    if (!normalized.name || !normalized.email || !normalized.message) {
+      setError(t('contact.error.required'));
+      return;
+    }
+
+    if (!emailPattern.test(normalized.email)) {
+      setError(t('contact.error.email'));
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
-      console.log('Sending POST request to /api/contact');
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(normalized),
       });
 
-      console.log('Response status:', response.status);
-      const responseData = await response.json();
-      console.log('Response data:', responseData);
-
-      if (response.ok) {
-        console.log('Email sent successfully!');
-        setIsSubmitted(true);
-        setFormData({ name: '', email: '', message: '' });
-      } else {
-        console.error('Failed to send email, status:', response.status);
-        alert(`Failed to send message: ${response.statusText}`);
+      if (!response.ok) {
+        setError(
+          response.status === 503
+            ? t('contact.error.unavailable')
+            : t('contact.error.generic'),
+        );
+        return;
       }
-    } catch (error) {
-      console.error('Failed to send message:', error);
-      alert(`Error sending message: ${error}`);
+
+      setIsSubmitted(true);
+      setFormData({ name: '', email: '', message: '' });
+    } catch {
+      setError(t('contact.error.generic'));
     } finally {
       setIsSubmitting(false);
     }
@@ -50,51 +68,69 @@ export function ContactForm() {
 
   if (isSubmitted) {
     return (
-      <div className="bg-muted/30 rounded-lg p-4 text-center">
-        <p className="text-sm text-foreground/80">
-          {t('contact.success')}
-        </p>
+      <div className="rounded-lg bg-muted/40 p-4 text-center" role="status" aria-live="polite">
+        <p className="text-sm text-foreground/80">{t('contact.success')}</p>
       </div>
     );
   }
 
   return (
-    <div className="bg-muted/30 rounded-lg p-4 space-y-3">
-      <p className="text-sm text-foreground/80 mb-3">
+    <div className="space-y-4 rounded-lg bg-muted/40 p-4">
+      <p className="text-sm leading-relaxed text-foreground/80">
         {t('contact.prompt')}
       </p>
-      <form onSubmit={handleSubmit} className="space-y-3">
-        <Input
-          type="text"
-          placeholder={t('contact.name')}
-          value={formData.name}
-          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-          required
-          className="text-sm"
-        />
-        <Input
-          type="email"
-          placeholder={t('contact.email')}
-          value={formData.email}
-          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-          required
-          className="text-sm"
-        />
-        <textarea
-          placeholder={t('contact.message')}
-          value={formData.message}
-          onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-          required
-          className="w-full min-h-[80px] px-3 py-2 text-sm rounded-md border border-input bg-background resize-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-        />
-        <Button
-          type="submit"
-          disabled={isSubmitting}
-          className="w-full"
-          size="sm"
-        >
+      <form onSubmit={handleSubmit} className="space-y-4" noValidate>
+        <div className="space-y-1.5">
+          <label htmlFor={`${id}-name`} className="text-xs font-medium text-foreground/75">
+            {t('contact.name')}
+          </label>
+          <Input
+            id={`${id}-name`}
+            type="text"
+            value={formData.name}
+            onChange={(event) => setFormData((current) => ({ ...current, name: event.target.value }))}
+            required
+            autoComplete="name"
+            className="h-11 text-base sm:text-sm"
+          />
+        </div>
+        <div className="space-y-1.5">
+          <label htmlFor={`${id}-email`} className="text-xs font-medium text-foreground/75">
+            {t('contact.email')}
+          </label>
+          <Input
+            id={`${id}-email`}
+            type="email"
+            value={formData.email}
+            onChange={(event) => setFormData((current) => ({ ...current, email: event.target.value }))}
+            required
+            autoComplete="email"
+            className="h-11 text-base sm:text-sm"
+          />
+        </div>
+        <div className="space-y-1.5">
+          <label htmlFor={`${id}-message`} className="text-xs font-medium text-foreground/75">
+            {t('contact.message')}
+          </label>
+          <textarea
+            id={`${id}-message`}
+            value={formData.message}
+            onChange={(event) => setFormData((current) => ({ ...current, message: event.target.value }))}
+            required
+            className="min-h-24 w-full resize-y rounded-md border border-input bg-background px-3 py-2 text-base ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:text-sm"
+          />
+        </div>
+
+        <div aria-live="assertive">
+          {error ? <p className="text-sm text-destructive" role="alert">{error}</p> : null}
+        </div>
+
+        <Button type="submit" disabled={isSubmitting} className="h-11 w-full">
           {isSubmitting ? t('contact.sending') : t('contact.submit')}
         </Button>
+        <p className="sr-only" role="status" aria-live="polite">
+          {isSubmitting ? t('contact.sending') : ''}
+        </p>
       </form>
     </div>
   );

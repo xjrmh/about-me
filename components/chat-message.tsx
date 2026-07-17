@@ -14,11 +14,12 @@ export function ChatMessage({ role, content }: ChatMessageProps) {
   const displayContent = content.replace('[CONTACT_PROMPT]', '').trim();
 
   return (
-    <div
+    <article
       className={cn(
         'flex gap-3 items-start group',
         isUser ? 'flex-row-reverse' : 'flex-row'
       )}
+      aria-label={isUser ? 'You' : 'Li Zheng'}
     >
       {/* Avatar */}
       <div
@@ -47,7 +48,7 @@ export function ChatMessage({ role, content }: ChatMessageProps) {
               : 'bg-transparent text-foreground'
           )}
         >
-          <p className="text-[13px] leading-relaxed whitespace-pre-wrap break-words">{displayContent}</p>
+          <p className="text-sm leading-relaxed whitespace-pre-wrap break-words">{displayContent}</p>
         </div>
 
         {/* Show contact form if triggered */}
@@ -57,6 +58,6 @@ export function ChatMessage({ role, content }: ChatMessageProps) {
           </div>
         )}
       </div>
-    </div>
+    </article>
   );
 }

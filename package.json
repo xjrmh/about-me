@@ -6,12 +6,14 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "check:content": "node scripts/validate-profile-content.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.71.2",
     "@next/third-parties": "^16.1.6",
     "@radix-ui/react-avatar": "^1.1.11",
+    "@radix-ui/react-dialog": "^1.1.19",
     "@radix-ui/react-scroll-area": "^1.2.10",
     "@radix-ui/react-slot": "^1.2.4",
     "ai": "^3.4.0",

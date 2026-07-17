@@ -1,100 +1,109 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import './globals.css';
-import { LanguageProvider } from '@/lib/language-context';
 import { GoogleAnalytics } from '@next/third-parties/google';
+import { LanguageProvider } from '@/lib/language-context';
+import { profileData } from '@/lib/profile-data';
+import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
 
-const baseUrl = process.env.SITE_URL ||
-                (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000');
+const baseUrl =
+  process.env.SITE_URL ||
+  (process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : 'http://localhost:3000');
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
-  title: 'Li Zheng - Data Science | Product | AI',
-  description:
-    'Li Zheng (xjrmh) — Data Scientist, Co-Founder, and AI enthusiast. Explore my portfolio in data science, machine learning, real estate innovation, and AI. Former Staff Data Scientist at Meta. Chat with my AI to learn more.',
+  title: profileData.seo.title.en,
+  description: profileData.seo.description.en,
   keywords: [
     'Li Zheng',
-    'xjrmh',
-    'Data Scientist',
-    'Seniot Data Scientist',
-    'Staff Data Scientist',
-    'Data Science',
-    'Machine Learning',
-    'AI',
-    'Meta',
-    'Duke University',
-    'Portfolio',
-    'Product',
-    'Real Estate',
+    'Flatre.ai',
+    'AI product leader',
+    'Data science',
+    'Meta AI Search',
+    'Experimentation',
+    'Causal inference',
+    'LLM evaluation',
+    'Real estate AI',
   ],
-  authors: [{ name: 'Li Zheng' }],
-  creator: 'Li Zheng',
-  alternates: {
-    canonical: '/',
-  },
+  authors: [{ name: profileData.name.en }],
+  creator: profileData.name.en,
+  alternates: { canonical: '/' },
   icons: {
     icon: [
       { url: '/favicon-profile2-32.png', sizes: '32x32', type: 'image/png' },
       { url: '/favicon-profile2-16.png', sizes: '16x16', type: 'image/png' },
     ],
-    apple: { url: '/apple-touch-icon-profile2.png', sizes: '180x180', type: 'image/png' },
+    apple: {
+      url: '/apple-touch-icon-profile2.png',
+      sizes: '180x180',
+      type: 'image/png',
+    },
     shortcut: '/favicon-profile2-32.png',
   },
   openGraph: {
-    title: 'Li Zheng (xjrmh) - Data Science | Product | AI',
-    description:
-      'Li Zheng (xjrmh) — Data Scientist, Co-Founder, and AI enthusiast. Portfolio featuring data science, machine learning, and AI projects. Former Staff Data Scientist at Meta.',
+    title: profileData.seo.title.en,
+    description: profileData.seo.description.en,
     type: 'website',
     url: '/',
-    siteName: 'Li Zheng — xjrmh.com',
+    siteName: profileData.seo.title.en,
     locale: 'en_US',
     images: [
       {
         url: '/profile2.png',
         width: 800,
         height: 800,
-        alt: 'Li Zheng - Data Scientist and AI Enthusiast',
+        alt: profileData.seo.imageAlt.en,
       },
     ],
   },
   twitter: {
     card: 'summary',
-    title: 'Li Zheng (xjrmh) - Data Science | Product | AI',
-    description:
-      'Li Zheng (xjrmh) — Data Scientist, Co-Founder, and AI enthusiast. Explore my portfolio and chat with my AI.',
-    images: ['/profile2.png'],
+    title: profileData.seo.title.en,
+    description: profileData.seo.description.en,
+    images: [
+      {
+        url: '/profile2.png',
+        alt: profileData.seo.imageAlt.en,
+      },
+    ],
   },
 };
 
+const currentRole = profileData.experience[0];
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
-  name: 'Li Zheng',
+  name: profileData.name.en,
   alternateName: 'xjrmh',
   url: baseUrl,
   image: `${baseUrl}/profile2.png`,
-  jobTitle: 'Co-Founder',
+  description: profileData.seo.description.en,
+  jobTitle: currentRole.role.en,
   worksFor: {
     '@type': 'Organization',
-    name: 'Flat Strategy',
+    name: 'Flatre, Inc.',
+    url: currentRole.links?.[0]?.url,
   },
-  alumniOf: [
-    {
-      '@type': 'CollegeOrUniversity',
-      name: 'Duke University',
-    },
-    {
-      '@type': 'CollegeOrUniversity',
-      name: 'The Ohio State University',
-    },
+  alumniOf: profileData.education.map((item) => ({
+    '@type': 'CollegeOrUniversity',
+    name: item.school.en,
+  })),
+  sameAs: profileData.socialLinks
+    .filter((link) => link.id === 'linkedin' || link.id === 'github')
+    .map((link) => link.url),
+  knowsAbout: [
+    'Artificial intelligence',
+    'Data science',
+    'Product leadership',
+    'Search',
+    'Experimentation',
+    'Causal inference',
+    'LLM evaluation',
+    'Real estate technology',
   ],
-  sameAs: [
-    'https://www.linkedin.com/in/li-zheng/',
-    'https://github.com/xjrmh',
-  ],
-  knowsAbout: ['Data Science', 'Machine Learning', 'AI', 'Product Management', 'Real Estate Technology'],
 };
 
 export default function RootLayout({
@@ -105,7 +114,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -113,8 +121,10 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         <LanguageProvider>{children}</LanguageProvider>
+        {process.env.NEXT_PUBLIC_GA_ID ? (
+          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
+        ) : null}
       </body>
-      {process.env.NEXT_PUBLIC_GA_ID && <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />}
     </html>
   );
 }

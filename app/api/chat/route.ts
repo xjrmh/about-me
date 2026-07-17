@@ -1,105 +1,91 @@
 import Anthropic from '@anthropic-ai/sdk';
 import { AnthropicStream, StreamingTextResponse } from 'ai';
-import { getResume } from '@/lib/resume-fetcher';
+import { serializeProfileForChat, type Language } from '@/lib/profile-data';
 
-/**
- * Creates a system prompt that instructs Claude to speak as Li Zheng in first person,
- * using the resume content as context.
- */
-function createSystemPrompt(resumeText: string): string {
-  return `You are Li Zheng, a Senior Data Scientist. You are speaking directly as yourself in first person.
-
-Here is your complete professional background:
-
-${resumeText}
-
-Important instructions:
-1. Always use first person ("I", "my", "me") - never third person ("Li Zheng is", "he", etc.)
-2. Answer questions about your work experience, skills, projects, and education
-3. Politely decline overly personal questions and redirect to professional topics. For example:
-   "I'd prefer to keep our conversation focused on my professional background. Is there something specific about my experience you'd like to know?"
-4. Be warm, professional, and enthusiastic when discussing your work
-5. Only reference information from the resume above - don't invent or assume details not provided
-6. If asked about something not in your resume, acknowledge it and redirect:
-   "That's not something I've detailed in my background. Would you like to know about [suggest related topic from resume]?"
-7. For questions that require a personal response, collaboration discussion, or deeper conversation beyond your resume, offer to connect directly. End your response with exactly this text:
-   "[CONTACT_PROMPT]"
-8. Keep responses concise and conversational - aim for 2-4 sentences unless more detail is specifically requested
-
-Your goal is to help visitors learn about your professional experience and qualifications in a natural, conversational way.`;
+interface ChatMessagePayload {
+  role: 'user' | 'assistant';
+  content: string;
 }
 
-/**
- * POST /api/chat
- * Handles chat messages and streams responses from Claude.
- */
+function createSystemPrompt(language: Language): string {
+  const profileContext = serializeProfileForChat(language);
+  const languageInstruction =
+    language === 'zh'
+      ? '默认使用简体中文回答；如果访客使用其他语言，则使用访客的语言。'
+      : 'Answer in English by default; if the visitor writes in another language, answer in the visitor’s language.';
+
+  return `You are Li Zheng, Founder of Flatre.ai, speaking directly as yourself in first person.
+
+Canonical professional profile:
+
+${profileContext}
+
+Instructions:
+1. Always use first person ("I", "my", "me") and never describe Li in third person.
+2. ${languageInstruction}
+3. Answer questions about the professional profile above, including Flatre.ai, Meta AI Search, experimentation, skills, projects, and education.
+4. Be warm, specific, professional, and concise. Aim for 2–4 sentences unless more detail is requested. Use plain text without Markdown formatting.
+5. Use only the canonical profile above. Do not invent product traction, customers, metrics, responsibilities, dates, or personal details.
+6. Politely redirect overly personal or unsupported questions toward relevant professional topics.
+7. For collaboration discussions or requests for a personal follow-up, end with exactly this token on its own line: [CONTACT_PROMPT]
+8. Flatre.ai is Li’s current role. When asked what you are building now or about your current role, begin by saying: "I’m the Founder of Flatre.ai."`;
+}
+
+function isChatMessage(value: unknown): value is ChatMessagePayload {
+  if (!value || typeof value !== 'object') return false;
+  const message = value as Record<string, unknown>;
+  return (
+    (message.role === 'user' || message.role === 'assistant') &&
+    typeof message.content === 'string'
+  );
+}
+
 export async function POST(req: Request) {
   try {
-    // Parse the incoming messages from the request
-    const { messages } = await req.json();
+    const body = (await req.json()) as {
+      messages?: unknown;
+      language?: unknown;
+    };
+    const language: Language = body.language === 'zh' ? 'zh' : 'en';
 
-    // Validate that we have messages
-    if (!messages || !Array.isArray(messages)) {
-      return new Response('Invalid request: messages array is required', {
-        status: 400,
-      });
-    }
-
-    // Check for API key
-    const apiKey = process.env.ANTHROPIC_API_KEY;
-    if (!apiKey) {
-      return new Response(
-        'Server configuration error: ANTHROPIC_API_KEY is not set',
-        { status: 500 }
+    if (!Array.isArray(body.messages) || !body.messages.every(isChatMessage)) {
+      return Response.json(
+        { error: 'A valid messages array is required.' },
+        { status: 400 },
       );
     }
 
-    // Initialize Anthropic client
-    const anthropic = new Anthropic({
-      apiKey: apiKey,
-    });
+    const apiKey = process.env.ANTHROPIC_API_KEY;
+    if (!apiKey) {
+      return Response.json(
+        { error: 'Chat is temporarily unavailable.' },
+        { status: 503 },
+      );
+    }
 
-    // Fetch the resume (cached for 24 hours)
-    const resumeText = await getResume();
-
-    // Create the system prompt with resume context
-    const systemPrompt = createSystemPrompt(resumeText);
-
-    // Stream the response from Claude
+    const anthropic = new Anthropic({ apiKey });
     const response = anthropic.messages.stream({
       model: 'claude-sonnet-4-5-20250929',
       max_tokens: 1024,
       temperature: 0.7,
-      system: systemPrompt,
-      messages: messages.map((msg: any) => ({
-        role: msg.role,
-        content: msg.content,
-      })),
+      system: createSystemPrompt(language),
+      messages: body.messages,
       stream: true,
     });
 
-    // Convert the stream to a format that the AI SDK can use
-    // @ts-ignore - Type mismatch between Anthropic SDK and AI SDK versions
+    // The AI SDK adapter accepts the Anthropic stream at runtime; its bundled
+    // type predates the current Anthropic SDK stream declaration.
+    // @ts-expect-error Anthropic SDK and AI SDK stream declarations are mismatched.
     const stream = AnthropicStream(response);
-
-    // Return the streaming response
     return new StreamingTextResponse(stream);
   } catch (error) {
-    console.error('Error in chat API:', error);
-
-    // Return a user-friendly error message
-    const errorMessage =
-      error instanceof Error ? error.message : 'Unknown error occurred';
-
-    return new Response(
-      JSON.stringify({
-        error: 'Failed to process chat request',
-        details: errorMessage,
-      }),
-      {
-        status: 500,
-        headers: { 'Content-Type': 'application/json' },
-      }
+    console.error(
+      'Chat request failed',
+      error instanceof Error ? error.name : 'UnknownError',
+    );
+    return Response.json(
+      { error: 'Failed to process the chat request.' },
+      { status: 500 },
     );
   }
 }

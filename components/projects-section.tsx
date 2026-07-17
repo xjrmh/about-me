@@ -3,148 +3,77 @@
 import Image from 'next/image';
 import { ExternalLink } from 'lucide-react';
 import { useLanguage } from '@/lib/language-context';
+import { localize, profileData } from '@/lib/profile-data';
 
 export function ProjectsSection() {
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
 
   return (
-    <div className="flex flex-col min-h-full">
-      <div className="w-full max-w-2xl mx-auto space-y-4 sm:space-y-6 lg:space-y-8 pt-4 pb-2 px-5 sm:pt-6 sm:pb-2 sm:px-4 lg:pt-8 lg:pb-3 lg:pl-3 lg:pr-3">
-        <div className="space-y-2.5 sm:space-y-3 lg:space-y-4">
-          <h2 className="text-sm font-bold text-foreground/90 uppercase tracking-wide">{t('profile.projects')}</h2>
-          <div className="space-y-3 sm:space-y-4 lg:space-y-5">
-            <div className="space-y-1">
-              <a
-                href="https://experimentdesigner.xjrmh.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm font-medium text-foreground hover:text-foreground/70 transition-colors inline-flex items-center gap-1"
-              >
-                {t('proj.experimentdesigner')}
-                <ExternalLink className="w-3 h-3" />
-              </a>
-              <p className="text-xs text-muted-foreground/60 leading-relaxed">
+    <div className="flex min-h-full flex-col">
+      <div className="mx-auto w-full max-w-2xl px-5 pb-8 pt-5 sm:px-6 sm:pt-7 lg:px-5 lg:pb-10 lg:pt-8">
+        <section aria-labelledby="projects-heading" className="space-y-5">
+          <h2
+            id="projects-heading"
+            className="text-sm font-bold uppercase tracking-wide text-foreground/90"
+          >
+            {t('section.projects')}
+          </h2>
+
+          <div className="space-y-7">
+            {profileData.projects.map((project) => (
+              <article key={project.id} className="space-y-2">
                 <a
-                  href="https://github.com/xjrmh/experiment-designer-skill"
+                  href={project.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-foreground/70 hover:text-foreground/50 transition-colors underline underline-offset-2"
+                  className="inline-flex min-h-11 items-center gap-1.5 rounded-sm text-sm font-semibold text-foreground transition-colors hover:text-foreground/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 lg:min-h-8"
                 >
-                  {t('proj.experimentdesigner.skill')}
+                  {localize(project.title, language)}
+                  <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
                 </a>
-              </p>
-              <p className="text-xs text-muted-foreground/60 leading-relaxed">
-                {t('proj.experimentdesigner.desc')}
-              </p>
-              <a href="https://experimentdesigner.xjrmh.com" target="_blank" rel="noopener noreferrer" className="relative block w-full aspect-video rounded-md overflow-hidden border border-border/40 mt-1.5 hover:opacity-80 transition-opacity">
-                <Image
-                  src="/project_screenshots/experiment-designer.png"
-                  alt="Experiment Designer screenshot"
-                  fill
-                  sizes="(max-width: 672px) 100vw, 672px"
-                  className="object-cover"
-                />
-              </a>
-            </div>
-            <div className="space-y-1">
-              <a
-                href="https://northstar.xjrmh.com/auth/signin"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm font-medium text-foreground hover:text-foreground/70 transition-colors inline-flex items-center gap-1"
-              >
-                {t('proj.northstar')}
-                <ExternalLink className="w-3 h-3" />
-              </a>
-              <p className="text-xs text-muted-foreground/60 leading-relaxed">
-                {t('proj.northstar.desc')}
-              </p>
-              <a href="https://northstar.xjrmh.com/auth/signin" target="_blank" rel="noopener noreferrer" className="relative block w-full aspect-video rounded-md overflow-hidden border border-border/40 mt-1.5 hover:opacity-80 transition-opacity">
-                <Image
-                  src="/project_screenshots/northstar.png"
-                  alt="NorthStar screenshot"
-                  fill
-                  sizes="(max-width: 672px) 100vw, 672px"
-                  className="object-cover"
-                />
-              </a>
-            </div>
-            <div className="space-y-1">
-              <a
-                href="https://www.closewithflat.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm font-medium text-foreground hover:text-foreground/70 transition-colors inline-flex items-center gap-1"
-              >
-                {t('proj.flat')}
-                <ExternalLink className="w-3 h-3" />
-              </a>
-              <p className="text-xs text-muted-foreground/60 leading-relaxed">
-                {t('proj.flat.desc')}
-              </p>
-              <a href="https://www.closewithflat.com" target="_blank" rel="noopener noreferrer" className="relative block w-full aspect-video rounded-md overflow-hidden border border-border/40 mt-1.5 hover:opacity-80 transition-opacity">
-                <Image
-                  src="/project_screenshots/close-with-flat.png"
-                  alt="Close with Flat screenshot"
-                  fill
-                  sizes="(max-width: 672px) 100vw, 672px"
-                  className="object-cover"
-                />
-              </a>
-            </div>
-            <div className="space-y-1">
-              <a
-                href="https://aterminal.xjrmh.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm font-medium text-foreground hover:text-foreground/70 transition-colors inline-flex items-center gap-1"
-              >
-                {t('proj.aterminal')}
-                <ExternalLink className="w-3 h-3" />
-              </a>
-              <p className="text-xs text-muted-foreground/60 leading-relaxed">
-                {t('proj.aterminal.desc')}
-              </p>
-              <a href="https://aterminal.xjrmh.com" target="_blank" rel="noopener noreferrer" className="relative block w-full aspect-video rounded-md overflow-hidden border border-border/40 mt-1.5 hover:opacity-80 transition-opacity">
-                <Image
-                  src="/project_screenshots/alpha-terminal.png"
-                  alt="Alpha Terminal screenshot"
-                  fill
-                  sizes="(max-width: 672px) 100vw, 672px"
-                  className="object-cover"
-                />
-              </a>
-            </div>
-            <div className="space-y-1">
-              <a
-                href="https://apps.apple.com/us/app/go-moku/id6755308947"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm font-medium text-foreground hover:text-foreground/70 transition-colors inline-flex items-center gap-1"
-              >
-                {t('proj.gomoku')}
-                <ExternalLink className="w-3 h-3" />
-              </a>
-              <p className="text-xs text-muted-foreground/60 leading-relaxed">
-                {t('proj.gomoku.desc')}
-              </p>
-            </div>
-            <div className="space-y-1">
-              <a
-                href="https://xjrmh.github.io/work-focus-timer/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm font-medium text-foreground hover:text-foreground/70 transition-colors inline-flex items-center gap-1"
-              >
-                {t('proj.timer')}
-                <ExternalLink className="w-3 h-3" />
-              </a>
-              <p className="text-xs text-muted-foreground/60 leading-relaxed">
-                {t('proj.timer.desc')}
-              </p>
-            </div>
+
+                {project.secondaryLink ? (
+                  <p className="text-xs text-foreground/65">
+                    <a
+                      href={project.secondaryLink.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex min-h-11 items-center rounded-sm underline decoration-border underline-offset-4 transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 lg:min-h-8"
+                    >
+                      {localize(project.secondaryLink.label, language)}
+                    </a>
+                  </p>
+                ) : null}
+
+                <p className="text-sm leading-relaxed text-muted-foreground">
+                  {localize(project.description, language)}
+                </p>
+
+                {project.image && project.imageAlt ? (
+                  <a
+                    href={project.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="relative mt-3 block aspect-video w-full overflow-hidden rounded-lg border border-border/60 bg-muted/30 transition-opacity hover:opacity-85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                    aria-label={`${localize(project.title, language)} — ${localize(project.imageAlt, language)}`}
+                  >
+                    <Image
+                      src={project.image}
+                      alt={localize(project.imageAlt, language)}
+                      fill
+                      priority={
+                        project.id === 'flatre' ||
+                        project.id === 'listing-photo-ranker'
+                      }
+                      sizes="(max-width: 1023px) calc(100vw - 2.5rem), 31vw"
+                      className="object-cover"
+                    />
+                  </a>
+                ) : null}
+              </article>
+            ))}
           </div>
-        </div>
+        </section>
       </div>
     </div>
   );
