@@ -318,7 +318,7 @@ export const profileData = {
         '面向房产经纪人、团队和经纪公司的AI工作空间，串联业务管线、收件箱、合同、交割和带人工审核的AI工作流。',
       ),
       url: 'https://www.flatre.ai',
-      image: '/project_screenshots/flatre.png',
+      image: '/project_screenshots/flatre.jpg',
       imageAlt: text('Flatre.ai product website', 'Flatre.ai 产品网站'),
     },
     {
